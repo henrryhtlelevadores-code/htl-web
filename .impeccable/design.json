@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T01:54:20.071Z",
+  "title": "Design System: HTL Elevadores",
+  "extensions": {
+    "colorMeta": {
+      "brand": {
+        "role": "primary",
+        "displayName": "Cabin Red",
+        "canonical": "oklch(38.0% 0.154 28.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.087 28.9)",
+          "oklch(26.0% 0.140 28.9)",
+          "oklch(38.0% 0.154 28.9)",
+          "oklch(50.0% 0.154 28.9)",
+          "oklch(62.0% 0.154 28.9)",
+          "oklch(74.0% 0.140 28.9)",
+          "oklch(85.0% 0.087 28.9)",
+          "oklch(95.0% 0.030 28.9)"
+        ]
+      },
+      "brand-deep": {
+        "role": "primary",
+        "displayName": "Cabin Red Deep",
+        "canonical": "oklch(30.4% 0.122 28.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.069 28.8)",
+          "oklch(26.0% 0.112 28.8)",
+          "oklch(38.0% 0.122 28.8)",
+          "oklch(50.0% 0.122 28.8)",
+          "oklch(62.0% 0.122 28.8)",
+          "oklch(74.0% 0.112 28.8)",
+          "oklch(85.0% 0.069 28.8)",
+          "oklch(95.0% 0.024 28.8)"
+        ]
+      },
+      "on-brand": {
+        "role": "primary",
+        "displayName": "On Brand",
+        "canonical": "oklch(100.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(38.0% 0.000 0)",
+          "oklch(50.0% 0.000 0)",
+          "oklch(62.0% 0.000 0)",
+          "oklch(74.0% 0.000 0)",
+          "oklch(85.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "on-brand-muted": {
+        "role": "primary",
+        "displayName": "On Brand Muted",
+        "canonical": "oklch(87.9% 0.044 30.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.025 30.2)",
+          "oklch(26.0% 0.040 30.2)",
+          "oklch(38.0% 0.044 30.2)",
+          "oklch(50.0% 0.044 30.2)",
+          "oklch(62.0% 0.044 30.2)",
+          "oklch(74.0% 0.040 30.2)",
+          "oklch(85.0% 0.025 30.2)",
+          "oklch(95.0% 0.009 30.2)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Accent (light theme)",
+        "canonical": "oklch(38.0% 0.154 28.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.087 28.9)",
+          "oklch(26.0% 0.140 28.9)",
+          "oklch(38.0% 0.154 28.9)",
+          "oklch(50.0% 0.154 28.9)",
+          "oklch(62.0% 0.154 28.9)",
+          "oklch(74.0% 0.140 28.9)",
+          "oklch(85.0% 0.087 28.9)",
+          "oklch(95.0% 0.030 28.9)"
+        ]
+      },
+      "accent-dark": {
+        "role": "primary",
+        "displayName": "Accent (dark theme)",
+        "canonical": "oklch(70.8% 0.185 28.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.105 28.0)",
+          "oklch(26.0% 0.168 28.0)",
+          "oklch(38.0% 0.185 28.0)",
+          "oklch(50.0% 0.185 28.0)",
+          "oklch(62.0% 0.185 28.0)",
+          "oklch(74.0% 0.168 28.0)",
+          "oklch(85.0% 0.105 28.0)",
+          "oklch(95.0% 0.036 28.0)"
+        ]
+      },
+      "led": {
+        "role": "secondary",
+        "displayName": "LED Red",
+        "canonical": "oklch(65.6% 0.231 29.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.131 29.3)",
+          "oklch(26.0% 0.210 29.3)",
+          "oklch(38.0% 0.231 29.3)",
+          "oklch(50.0% 0.231 29.3)",
+          "oklch(62.0% 0.231 29.3)",
+          "oklch(74.0% 0.210 29.3)",
+          "oklch(85.0% 0.131 29.3)",
+          "oklch(95.0% 0.045 29.3)"
+        ]
+      },
+      "display-glass": {
+        "role": "secondary",
+        "displayName": "Display Glass",
+        "canonical": "oklch(13.9% 0.003 246.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.003 246.3)",
+          "oklch(38.0% 0.003 246.3)",
+          "oklch(50.0% 0.003 246.3)",
+          "oklch(62.0% 0.003 246.3)",
+          "oklch(74.0% 0.003 246.3)",
+          "oklch(85.0% 0.002 0)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground (light theme)",
+        "canonical": "oklch(94.6% 0.003 264.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.003 264.5)",
+          "oklch(38.0% 0.003 264.5)",
+          "oklch(50.0% 0.003 264.5)",
+          "oklch(62.0% 0.003 264.5)",
+          "oklch(74.0% 0.003 264.5)",
+          "oklch(85.0% 0.002 0)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface (light theme)",
+        "canonical": "oklch(97.3% 0.001 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 0)",
+          "oklch(26.0% 0.001 0)",
+          "oklch(38.0% 0.001 0)",
+          "oklch(50.0% 0.001 0)",
+          "oklch(62.0% 0.001 0)",
+          "oklch(74.0% 0.001 0)",
+          "oklch(85.0% 0.001 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "Raised (light theme)",
+        "canonical": "oklch(100.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(38.0% 0.000 0)",
+          "oklch(50.0% 0.000 0)",
+          "oklch(62.0% 0.000 0)",
+          "oklch(74.0% 0.000 0)",
+          "oklch(85.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line (light theme)",
+        "canonical": "oklch(83.5% 0.008 260.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 260.7)",
+          "oklch(26.0% 0.007 260.7)",
+          "oklch(38.0% 0.008 260.7)",
+          "oklch(50.0% 0.008 260.7)",
+          "oklch(62.0% 0.008 260.7)",
+          "oklch(74.0% 0.007 260.7)",
+          "oklch(85.0% 0.004 260.7)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink (light theme)",
+        "canonical": "oklch(19.1% 0.004 264.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 264.5)",
+          "oklch(26.0% 0.004 264.5)",
+          "oklch(38.0% 0.004 264.5)",
+          "oklch(50.0% 0.004 264.5)",
+          "oklch(62.0% 0.004 264.5)",
+          "oklch(74.0% 0.004 264.5)",
+          "oklch(85.0% 0.002 264.5)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted (light theme)",
+        "canonical": "oklch(44.0% 0.015 255.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.009 255.6)",
+          "oklch(26.0% 0.014 255.6)",
+          "oklch(38.0% 0.015 255.6)",
+          "oklch(50.0% 0.015 255.6)",
+          "oklch(62.0% 0.015 255.6)",
+          "oklch(74.0% 0.014 255.6)",
+          "oklch(85.0% 0.009 255.6)",
+          "oklch(95.0% 0.003 255.6)"
+        ]
+      },
+      "steel": {
+        "role": "neutral",
+        "displayName": "Steel (light theme)",
+        "canonical": "oklch(65.4% 0.014 255.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 255.5)",
+          "oklch(26.0% 0.013 255.5)",
+          "oklch(38.0% 0.014 255.5)",
+          "oklch(50.0% 0.014 255.5)",
+          "oklch(62.0% 0.014 255.5)",
+          "oklch(74.0% 0.013 255.5)",
+          "oklch(85.0% 0.008 255.5)",
+          "oklch(95.0% 0.003 255.5)"
+        ]
+      },
+      "ground-dark": {
+        "role": "neutral",
+        "displayName": "Ground (dark theme)",
+        "canonical": "oklch(16.4% 0.005 264.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 264.4)",
+          "oklch(26.0% 0.004 264.4)",
+          "oklch(38.0% 0.005 264.4)",
+          "oklch(50.0% 0.005 264.4)",
+          "oklch(62.0% 0.005 264.4)",
+          "oklch(74.0% 0.004 264.4)",
+          "oklch(85.0% 0.003 264.4)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "surface-dark": {
+        "role": "neutral",
+        "displayName": "Surface (dark theme)",
+        "canonical": "oklch(20.4% 0.007 258.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 258.4)",
+          "oklch(26.0% 0.006 258.4)",
+          "oklch(38.0% 0.007 258.4)",
+          "oklch(50.0% 0.007 258.4)",
+          "oklch(62.0% 0.007 258.4)",
+          "oklch(74.0% 0.006 258.4)",
+          "oklch(85.0% 0.004 258.4)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "raised-dark": {
+        "role": "neutral",
+        "displayName": "Raised (dark theme)",
+        "canonical": "oklch(24.2% 0.009 255.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.005 255.6)",
+          "oklch(26.0% 0.008 255.6)",
+          "oklch(38.0% 0.009 255.6)",
+          "oklch(50.0% 0.009 255.6)",
+          "oklch(62.0% 0.009 255.6)",
+          "oklch(74.0% 0.008 255.6)",
+          "oklch(85.0% 0.005 255.6)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "line-dark": {
+        "role": "neutral",
+        "displayName": "Line (dark theme)",
+        "canonical": "oklch(32.4% 0.012 258.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 258.4)",
+          "oklch(26.0% 0.011 258.4)",
+          "oklch(38.0% 0.012 258.4)",
+          "oklch(50.0% 0.012 258.4)",
+          "oklch(62.0% 0.012 258.4)",
+          "oklch(74.0% 0.011 258.4)",
+          "oklch(85.0% 0.007 258.4)",
+          "oklch(95.0% 0.002 258.4)"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Ink (dark theme)",
+        "canonical": "oklch(95.3% 0.005 78.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 78.3)",
+          "oklch(26.0% 0.004 78.3)",
+          "oklch(38.0% 0.005 78.3)",
+          "oklch(50.0% 0.005 78.3)",
+          "oklch(62.0% 0.005 78.3)",
+          "oklch(74.0% 0.004 78.3)",
+          "oklch(85.0% 0.003 78.3)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Muted (dark theme)",
+        "canonical": "oklch(73.2% 0.013 255.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 255.5)",
+          "oklch(26.0% 0.012 255.5)",
+          "oklch(38.0% 0.013 255.5)",
+          "oklch(50.0% 0.013 255.5)",
+          "oklch(62.0% 0.013 255.5)",
+          "oklch(74.0% 0.012 255.5)",
+          "oklch(85.0% 0.008 255.5)",
+          "oklch(95.0% 0.003 255.5)"
+        ]
+      },
+      "steel-dark": {
+        "role": "neutral",
+        "displayName": "Steel (dark theme)",
+        "canonical": "oklch(56.3% 0.018 257.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 257.2)",
+          "oklch(26.0% 0.016 257.2)",
+          "oklch(38.0% 0.018 257.2)",
+          "oklch(50.0% 0.018 257.2)",
+          "oklch(62.0% 0.018 257.2)",
+          "oklch(74.0% 0.016 257.2)",
+          "oklch(85.0% 0.010 257.2)",
+          "oklch(95.0% 0.003 257.2)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Floor and page titles in the lettering voice: 66% width, weight 800, uppercase, capped at 20ch."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Block headings, product names and metric values in the lettering voice; 1.875rem rising to 2.25rem at md, with 3rem and 3.75rem steps for emphasis."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "List group headings and row titles at normal width, sentence case."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The muted paragraph under a floor title, capped at 62ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running copy and list items; 1.375 line-height inside lists, 0.875rem for small print."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Caption of a plate, a directory or a data cell, and footer column headings. 78% width, uppercase."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Text of the call and ghost buttons. 78% width, uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "plate-on-red",
+        "value": "0 24px 48px -24px rgb(0 0 0 / 0.6)",
+        "purpose": "A neutral plate mounted on a red floor."
+      },
+      {
+        "name": "panel-on-red",
+        "value": "0 30px 60px -30px rgb(0 0 0 / 0.7)",
+        "purpose": "The recessed form panel on the red floor."
+      },
+      {
+        "name": "standing-object",
+        "value": "0 30px 60px -30px rgb(0 0 0 / 0.55)",
+        "purpose": "Device mock-ups standing on a neutral floor."
+      },
+      {
+        "name": "standing-object-wide",
+        "value": "0 30px 60px -36px rgb(0 0 0 / 0.5)",
+        "purpose": "Wide window mock-up on a neutral floor."
+      },
+      {
+        "name": "floating-control",
+        "value": "0 12px 28px -10px rgb(0 0 0 / 0.6)",
+        "purpose": "The fixed contact button."
+      },
+      {
+        "name": "call-button-glow",
+        "value": "0 1px 0 rgb(255 255 255 / 0.18) inset, 0 10px 24px -12px rgb(129 3 3 / 0.7)",
+        "purpose": "Top highlight and red underglow of the call button."
+      },
+      {
+        "name": "lamp-ring",
+        "value": "0 0 0 2px rgb(255 255 255 / 0.85)",
+        "purpose": "White ring around the LED lamp on the call button."
+      },
+      {
+        "name": "lamp-halo",
+        "value": "0 0 0 3px color-mix(in srgb, #ff3d2e 22%, transparent)",
+        "purpose": "Glow around a lit call ring; 4px on a list dot."
+      },
+      {
+        "name": "outline-ring",
+        "value": "0 0 0 1px var(--line)",
+        "purpose": "Frame drawn as a shadow on product tiles; 2px in accent when selected."
+      },
+      {
+        "name": "door-lettering-light",
+        "value": "0 1px 0 rgb(255 255 255 / 0.35)",
+        "purpose": "Text shadow of lettering on the steel doors, light theme."
+      },
+      {
+        "name": "door-lettering-dark",
+        "value": "0 2px 10px rgb(0 0 0 / 0.65)",
+        "purpose": "Text shadow of lettering on the steel doors, dark theme."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one easing curve: control states, reveals, disclosures, bars."
+      },
+      {
+        "name": "duration-control",
+        "value": "160ms",
+        "purpose": "Hover and press on buttons and fields."
+      },
+      {
+        "name": "duration-lamp",
+        "value": "200ms",
+        "purpose": "A ring or dot lighting up."
+      },
+      {
+        "name": "duration-segment",
+        "value": "140ms linear",
+        "purpose": "Seven-segment digit changing."
+      },
+      {
+        "name": "duration-swap",
+        "value": "280ms",
+        "purpose": "Content swapping inside a fixed frame, with a 24px horizontal travel."
+      },
+      {
+        "name": "duration-disclosure",
+        "value": "400ms",
+        "purpose": "A row expanding in place; 420ms for the full-screen directory wipe."
+      },
+      {
+        "name": "duration-door",
+        "value": "550ms",
+        "purpose": "Door Image reveal from the centre seam: clip-path inset(0 50% 0 50%) to inset(0 0 0 0)."
+      },
+      {
+        "name": "duration-bar",
+        "value": "900ms, 80ms stagger",
+        "purpose": "Data bars growing from the left on entering view."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.97)",
+        "purpose": "Active state of every button."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Scroll ride collapses to one still viewport; reveals become fades; smooth scroll is disabled."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "40rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      },
+      {
+        "name": "xl",
+        "value": "80rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Call Button",
+      "kind": "button",
+      "refersTo": "button-call",
+      "description": "Primary action on neutral grounds: a red plate with a lit LED lamp. One per view.",
+      "html": "<a href=\"#\" class=\"ds-btn-call\">Agendar visita sin cargo</a>",
+      "css": ".ds-btn-call { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; min-height: 3.25rem; padding: 0.75rem 1.4rem; background: var(--brand); color: #fff; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-stretch: 78%; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; border-radius: 3px; box-shadow: 0 1px 0 rgb(255 255 255 / 0.18) inset, 0 10px 24px -12px rgb(129 3 3 / 0.7); transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-call::before { content: \"\"; width: 0.7rem; height: 0.7rem; flex: none; border-radius: 999px; background: var(--led); box-shadow: 0 0 0 2px rgb(255 255 255 / 0.85); } .ds-btn-call:hover { background: var(--brand-deep); } .ds-btn-call:active { transform: scale(0.97); } .ds-btn-call:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action on neutral grounds: a hairline outline, often a phone number or a forward link.",
+      "html": "<a href=\"#\" class=\"ds-btn-ghost\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384\"/></svg> +51 963 207 058</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 3.25rem; padding: 0.75rem 1.2rem; border: 1px solid var(--line); color: var(--ink); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-stretch: 78%; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; border-radius: 3px; transition: border-color 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-ghost:hover { border-color: var(--ink); } .ds-btn-ghost:active { transform: scale(0.97); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    },
+    {
+      "name": "On-Brand Buttons",
+      "kind": "button",
+      "refersTo": "button-on-brand",
+      "description": "The primary and secondary actions when they sit on a red floor.",
+      "html": "<div class=\"ds-onbrand\"><button type=\"button\" class=\"ds-btn-onbrand\">Enviar por WhatsApp</button><button type=\"button\" class=\"ds-btn-onbrand-outline\">Por correo</button></div>",
+      "css": ".ds-onbrand { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 2rem; background: var(--brand-deep); } .ds-btn-onbrand, .ds-btn-onbrand-outline { display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem; min-height: 3.5rem; padding: 0 1.25rem; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.025em; border-radius: 3px; cursor: pointer; } .ds-btn-onbrand { background: #fff; color: var(--brand); border: 0; transition: transform 150ms; } .ds-btn-onbrand-outline { background: transparent; color: #fff; border: 1px solid rgb(255 255 255 / 0.45); transition: border-color 150ms; } .ds-btn-onbrand-outline:hover { border-color: #fff; } .ds-btn-onbrand:active, .ds-btn-onbrand-outline:active { transform: scale(0.97); } .ds-btn-onbrand:focus-visible, .ds-btn-onbrand-outline:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    },
+    {
+      "name": "Floor Header",
+      "kind": "custom",
+      "refersTo": "floor-plate",
+      "description": "Section heading: the square floor plate with its code, the lettered title, and the lead paragraph.",
+      "html": "<header class=\"ds-floor\"><span class=\"ds-floor-plate\" aria-hidden=\"true\">2</span><div><h2 class=\"ds-floor-title\">Atendemos el ascensor que usted ya tiene</h2><p class=\"ds-floor-lead\">Aplicamos el mantenimiento que el fabricante diseñó para la marca y el modelo de su equipo.</p></div></header>",
+      "css": ".ds-floor { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem 1.5rem; padding: 2rem; background: var(--ground); color: var(--ink); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-floor-plate { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; background: var(--raised); border: 1px solid var(--line); color: var(--accent); font-stretch: 66%; font-weight: 800; font-size: 2.25rem; line-height: 0.94; } .ds-floor-title { margin: 0; max-width: 20ch; font-stretch: 66%; font-weight: 800; font-size: clamp(2.25rem, 6.2vw, 4.5rem); line-height: 0.94; letter-spacing: -0.005em; text-transform: uppercase; text-wrap: balance; } .ds-floor-lead { margin: 1.25rem 0 0; max-width: 62ch; font-size: 1.125rem; line-height: 1.625; color: var(--muted); }"
+    },
+    {
+      "name": "Directory Plate",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "A flat plate of ruled rows under a label caption: floor code in accent lettering, then the floor name.",
+      "html": "<nav class=\"ds-directory\"><p class=\"ds-directory-caption\">Directorio</p><ul class=\"ds-directory-plate\"><li><a href=\"#\"><span class=\"ds-directory-code\">6</span>Visita</a></li><li><a href=\"#\"><span class=\"ds-directory-code\">3</span>Software</a></li><li><a href=\"#\"><span class=\"ds-directory-code\">2</span>Ascensores</a></li></ul></nav>",
+      "css": ".ds-directory { width: 19rem; padding: 2rem; background: var(--ground); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-directory-caption { margin: 0 0 0.75rem; color: var(--muted); font-stretch: 78%; font-weight: 600; font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; } .ds-directory-plate { margin: 0; padding: 0; list-style: none; background: var(--raised); border: 1px solid var(--line); } .ds-directory-plate li + li { border-top: 1px solid var(--line); } .ds-directory-plate a { display: flex; align-items: center; gap: 0.75rem; min-height: 2.75rem; padding: 0.5rem 0.75rem; color: var(--ink); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: background-color 150ms; } .ds-directory-plate a:hover { background: var(--ground); } .ds-directory-plate a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; } .ds-directory-code { width: 1.25rem; text-align: center; color: var(--accent); font-stretch: 66%; font-weight: 800; font-size: 1.125rem; line-height: 0.94; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Floor Links with Call Rings",
+      "kind": "nav",
+      "refersTo": "call-ring",
+      "description": "Inline navigation: each floor is a ring with its code and a name. The current floor is lit in LED red.",
+      "html": "<nav class=\"ds-floors\"><a href=\"#\" class=\"ds-floor-link\"><span class=\"ds-ring\">1</span>Respaldo</a><a href=\"#\" class=\"ds-floor-link\" aria-current=\"true\"><span class=\"ds-ring\">2</span>Ascensores</a><a href=\"#\" class=\"ds-floor-link\"><span class=\"ds-ring\">3</span>Software</a></nav>",
+      "css": ".ds-floors { display: flex; align-items: center; gap: 0.25rem; padding: 0.625rem 1rem; background: var(--ground); border-bottom: 1px solid var(--line); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-floor-link { display: flex; align-items: center; gap: 0.5rem; height: 2.75rem; padding: 0 0.625rem; border-radius: 3px; color: var(--muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 150ms; } .ds-floor-link:hover, .ds-floor-link[aria-current=\"true\"] { color: var(--ink); } .ds-floor-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; } .ds-ring { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; flex: none; border-radius: 999px; border: 1.5px solid var(--steel); font-stretch: 75%; font-weight: 700; font-size: 0.8rem; line-height: 1; transition: border-color 200ms, color 200ms, box-shadow 200ms; } .ds-floor-link[aria-current=\"true\"] .ds-ring { border-color: var(--led); color: var(--led); box-shadow: 0 0 0 3px color-mix(in srgb, var(--led) 22%, transparent); }"
+    },
+    {
+      "name": "Floor Readout",
+      "kind": "custom",
+      "refersTo": "readout",
+      "description": "The lift indicator in the top bar: direction arrow, one seven-segment LED digit, and the floor name.",
+      "html": "<div class=\"ds-readout\" role=\"status\" aria-label=\"Piso actual: Ascensores\"><svg viewBox=\"0 0 12 12\" class=\"ds-readout-arrow\" aria-hidden=\"true\"><path d=\"M6 1.5 11 9.5H1z\" fill=\"var(--led)\"/></svg><svg viewBox=\"0 0 30 50\" class=\"ds-readout-digit\" aria-hidden=\"true\"><polygon points=\"6,2 24,2 20,6 10,6\" fill=\"var(--led)\" opacity=\"1\"/><polygon points=\"26,4 26,23 22,21 22,8\" fill=\"var(--led)\" opacity=\"1\"/><polygon points=\"26,27 26,46 22,42 22,29\" fill=\"var(--led)\" opacity=\"0.1\"/><polygon points=\"6,48 24,48 20,44 10,44\" fill=\"var(--led)\" opacity=\"1\"/><polygon points=\"4,27 4,46 8,42 8,29\" fill=\"var(--led)\" opacity=\"1\"/><polygon points=\"4,4 4,23 8,21 8,8\" fill=\"var(--led)\" opacity=\"0.1\"/><polygon points=\"7,25 10,23 20,23 23,25 20,27 10,27\" fill=\"var(--led)\" opacity=\"1\"/></svg><span class=\"ds-readout-name\">Ascensores</span></div>",
+      "css": ".ds-readout { display: inline-flex; align-items: center; gap: 0.5rem; height: 2.5rem; padding: 0 0.625rem; background: #08090a; border-radius: 3px; box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-readout-arrow { width: 0.75rem; height: 0.75rem; transition: transform 300ms; } .ds-readout-digit { height: 1.5rem; width: auto; } .ds-readout-name { padding-left: 0.25rem; color: rgb(255 255 255 / 0.75); font-stretch: 78%; font-weight: 600; font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Field on Red",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Form field built for a red floor: a dark recess with a pale hairline that turns solid white on focus.",
+      "html": "<div class=\"ds-field-wrap\"><label class=\"ds-field-label\" for=\"ds-field-demo\">Teléfono o WhatsApp <span>Opcional</span></label><input id=\"ds-field-demo\" class=\"ds-field\" type=\"tel\" placeholder=\"999 999 999\"></div>",
+      "css": ".ds-field-wrap { width: 20rem; padding: 2rem; background: var(--brand-deep); color: #fff; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-field-label { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 600; } .ds-field-label span { font-weight: 400; color: var(--on-brand-muted); } .ds-field { width: 100%; box-sizing: border-box; min-height: 3.25rem; padding: 0.8rem 0.9rem; font: inherit; font-size: 1rem; color: #fff; caret-color: var(--accent); background: rgb(0 0 0 / 0.22); border: 1px solid rgb(255 255 255 / 0.28); border-radius: 3px; transition: border-color 160ms, background-color 160ms; } .ds-field::placeholder { color: rgb(255 255 255 / 0.6); } .ds-field:focus, .ds-field:focus-visible { outline: none; border-color: #fff; background: rgb(0 0 0 / 0.34); } .ds-field[aria-invalid=\"true\"] { border-color: #ffd0c9; background: rgb(0 0 0 / 0.4); }"
+    },
+    {
+      "name": "Data Plate",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "A neutral plate mounted on a red floor: label caption, ruled rows, and values in accent lettering.",
+      "html": "<div class=\"ds-dataplate-floor\"><div class=\"ds-dataplate\"><p class=\"ds-dataplate-caption\">Placa de servicio</p><dl><div><dt>Años en transporte vertical</dt><dd>25+</dd></div><div><dt>Equipos bajo gestión</dt><dd>14+</dd></div></dl></div></div>",
+      "css": ".ds-dataplate-floor { padding: 2.5rem; background: var(--brand); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-dataplate { max-width: 28rem; padding: 2rem; background: var(--raised); border: 1px solid var(--line); color: var(--ink); box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.6); } .ds-dataplate-caption { margin: 0; color: var(--muted); font-stretch: 78%; font-weight: 600; font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; } .ds-dataplate dl { margin: 0.75rem 0 0; } .ds-dataplate dl > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 0.875rem 0; border-top: 1px solid var(--line); } .ds-dataplate dt { font-size: 0.95rem; font-weight: 500; line-height: 1.375; } .ds-dataplate dd { margin: 0; color: var(--accent); font-stretch: 66%; font-weight: 800; font-size: 3.75rem; line-height: 0.94; letter-spacing: -0.005em; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Ruled Selector Row",
+      "kind": "custom",
+      "refersTo": "call-ring",
+      "description": "Rows of a ruled list that drive one detail view; the active row is marked by a lit dot and ink text.",
+      "html": "<ul class=\"ds-selector\"><li><button type=\"button\" class=\"ds-selector-row\" aria-expanded=\"true\"><span class=\"ds-selector-dot\"></span><span><span class=\"ds-selector-title\">Mantenimiento preventivo</span><span class=\"ds-selector-sub\">Revisión mensual según el fabricante</span></span></button></li><li><button type=\"button\" class=\"ds-selector-row\" aria-expanded=\"false\"><span class=\"ds-selector-dot\"></span><span><span class=\"ds-selector-title\">Modernización</span><span class=\"ds-selector-sub\">Por componentes o total</span></span></button></li></ul>",
+      "css": ".ds-selector { width: 26rem; margin: 0; padding: 0 2rem; list-style: none; background: var(--ground); border-top: 1px solid var(--line); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-selector li { border-bottom: 1px solid var(--line); } .ds-selector-row { display: flex; align-items: center; gap: 1rem; width: 100%; padding: 1rem 0; background: none; border: 0; text-align: left; font: inherit; cursor: pointer; } .ds-selector-dot { width: 0.625rem; height: 0.625rem; flex: none; border-radius: 999px; background: var(--line); transition: background-color 200ms; } .ds-selector-title { display: block; color: var(--muted); font-size: 1.125rem; font-weight: 600; line-height: 1.25; transition: color 150ms; } .ds-selector-sub { display: block; margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; } .ds-selector-row:hover .ds-selector-title, .ds-selector-row[aria-expanded=\"true\"] .ds-selector-title { color: var(--ink); } .ds-selector-row[aria-expanded=\"true\"] .ds-selector-dot { background: var(--led); box-shadow: 0 0 0 4px color-mix(in srgb, var(--led) 22%, transparent); } .ds-selector-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lobby Directory",
+    "overview": "The site is a building and the visitor rides it. Every home section is a floor with a keyed address (L, 1 to 6), and that address appears the same way wherever the floor is named: in a ring in the navigation, on the LED readout in the top bar, on the square plate beside the section title, and in the footer directory. The material is lobby signage and cabin steel: cool neutral grounds, flat plates inside hairline frames, heavy condensed lettering, and whole floors painted in the brand red.\n\nDensity is that of a directory board, not a brochure. Content sits in ruled rows and plates on one square lattice; there are no soft cards, no gradients on surfaces, and no decorative imagery. Red arrives in two ways only: as a drench (a full floor, a block, a bar, the call button) and as light (the LED lamp, the readout, a lit ring). Both themes are the same lobby, in daylight and after hours.\n\nMovement follows the elevator. Things open from a centre seam like a pair of doors, or travel a short distance and settle on a long expo ease. Controls press in. Reduced motion collapses the scroll ride into a still frame and swaps door reveals for fades.",
+    "keyCharacteristics": [
+      "Floors, not sections: each has a code, shown identically in nav, readout, section plate and footer.",
+      "One variable family, Archivo, with the width axis doing the work of a second typeface.",
+      "Square plates and hairline rules; the only curves are lamps, rings and a 3px ease on pressable controls.",
+      "Red as drench or as light. Neutrals carry everything else.",
+      "Light and dark are one token set with the same roles; only the accent red changes value.",
+      "Door-seam reveals and an expo ease-out as the motion signature."
+    ],
+    "rules": [
+      {
+        "name": "The Drench or Light Rule",
+        "body": "Red is either a whole surface (Cabin Red) or a lamp (LED Red). It is never a tint, a gradient, a border accent or a wash behind text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Swap Rule",
+        "body": "Red text on a neutral ground uses Accent, never Cabin Red directly; Cabin Red on the dark ground is unreadable. On a red ground, text is On Brand or On Brand Muted and nothing else.",
+        "section": "colors"
+      },
+      {
+        "name": "The Same Lobby Rule",
+        "body": "A theme changes values, never roles. Cabin Red, LED Red, Display Glass and the white ground under product bottles do not change between themes.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "There is no second typeface. Contrast comes from the width axis: 66 for lettering, 75 to 78 for labels, buttons and ring numerals, 100 for reading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lettering Rule",
+        "body": "The condensed heavy voice is always uppercase and always tight (0.94). It is for names, titles and numbers: never a sentence of running copy, never lowercase.",
+        "section": "typography"
+      },
+      {
+        "name": "The Caption Rule",
+        "body": "Label type names the object it sits on or the value beneath it (a plate, a list, a contact cell). It is never set as a line above a title; a floor's title is introduced by its floor plate.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mounted, Not Floating Rule",
+        "body": "Nothing on a neutral floor casts a shadow unless it is a depicted object or a fixed control. Hierarchy between plates is a matter of tone and rule, not lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do give every floor one code and show it identically in the nav ring, the readout, the floor plate and the footer directory.",
+      "Do keep plates, panels, images and tags square, with 1px Line frames; reserve the 3px radius for pressable controls and the readout, and full rounds for lamps, rings and dots.",
+      "Do alternate neutral floors between Ground and Surface, and rule a Surface floor top and bottom.",
+      "Do build lists as ruled rows (a top rule, then a bottom rule per row) rather than as separate boxes.",
+      "Do set titles, names and numbers in the 66% width, weight 800, uppercase lettering voice at line-height 0.94, and keep floor titles within 20ch.",
+      "Do use Accent for red text on neutral grounds and On Brand or On Brand Muted for text on red.",
+      "Do keep touch targets at 2.75rem or more and primary controls at 3.25rem.",
+      "Do reveal swapped content from a centre seam or with a short settle on `cubic-bezier(0.16, 1, 0.3, 1)`, and give every animated change a reduced-motion fallback.",
+      "Do state a selected or current item with light (LED Red lamp, ring or dot) plus a change from Muted to Ink."
+    ],
+    "donts": [
+      "Don't introduce a second typeface; change the width axis instead.",
+      "Don't set running copy in the lettering voice, or set the lettering voice in lowercase.",
+      "Don't place Label type as a line above a title; it captions plates, lists and values.",
+      "Don't use red as a tint, gradient, border accent or wash; it is a full surface or a lamp.",
+      "Don't set Cabin Red as text on a dark ground, or Steel or Line as text anywhere new.",
+      "Don't use LED Red for a surface or a paragraph; it is for lamps, rings, dots and the readout.",
+      "Don't put a shadow under a plate on a neutral floor, and don't use short, hard or offset shadows anywhere.",
+      "Don't round plates or images, or frame icons in tiles.",
+      "Don't change a colour's role between themes; change its value."
+    ]
+  }
+}
