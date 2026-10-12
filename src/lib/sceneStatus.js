@@ -28,8 +28,20 @@ export function whenSceneSettled(maxWait) {
     });
 }
 
-// Whether the lift has been called (from the intro or from the station on the lobby wall).
-// One flag, so every call panel on the page shows the same state.
+// The intro's "skip" asks the hero to land on the statement without playing the ride.
+const skipListeners = new Set();
+
+export function skipRide() {
+    skipListeners.forEach((fn) => fn());
+}
+
+export function onRideSkipped(fn) {
+    skipListeners.add(fn);
+    return () => skipListeners.delete(fn);
+}
+
+// Whether the lift is being called from the intro. The station on the lobby wall shows the
+// same light until the intro hands over to it.
 let called = false;
 const callListeners = new Set();
 

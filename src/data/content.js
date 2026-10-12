@@ -12,9 +12,9 @@ import arostream from '../assets/brochure/arostream.png';
 
 export const METRICS = [
     { value: '25+', label: 'Años en transporte vertical' },
-    { value: '14+', label: 'Equipos bajo gestión', note: 'Ascensores, montacargas y plataformas' },
-    { value: '10+', label: 'Clientes institucionales y residenciales' },
-    { value: '9+', label: 'Contratos vigentes' },
+    { value: '30+', label: 'Equipos bajo gestión', note: 'Ascensores, montacargas y plataformas' },
+    { value: '18+', label: 'Clientes institucionales y residenciales' },
+    { value: '14+', label: 'Contratos vigentes' },
 ];
 
 // Each brand carries its own identity colour (or gradient), lit on hover. Neutral names rest in Muted.

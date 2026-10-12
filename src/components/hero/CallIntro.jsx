@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { animate, useReducedMotion } from 'framer-motion';
 import logoWhite from '../../assets/logohtl.png';
 import ElevatorCallButton from '../ui/ElevatorCallButton';
-import { setLiftCalled, whenSceneSettled } from '../../lib/sceneStatus';
+import { setLiftCalled, skipRide, whenSceneSettled } from '../../lib/sceneStatus';
 import { CALL_STATION, solveRide } from './geometry';
 
 const MIN_HOLD = 1600; // ms the lit button is shown before the cabin can arrive
@@ -34,16 +34,17 @@ export default function CallIntro() {
     const copyRef = useRef(null);
     const buttonRef = useRef(null);
 
-    const finish = useCallback(() => setPhase('gone'), []);
+    // The cabin has arrived: the call light goes out on the lobby's station.
+    const finish = useCallback(() => {
+        setPhase('gone');
+        setLiftCalled(false);
+    }, []);
 
     // Skip: leave the intro and land on the statement hero at the end of the lift ride, without
-    // playing the ride. The jump waits two frames so the page is scrollable again first.
+    // playing the ride.
     const skip = useCallback(() => {
+        skipRide();
         setPhase('gone');
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-            const lobby = document.getElementById('lobby');
-            if (lobby) window.scrollTo({ top: lobby.offsetTop + lobby.offsetHeight - window.innerHeight, behavior: 'auto' });
-        }));
     }, []);
 
     const call = useCallback(async () => {

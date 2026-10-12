@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Plus } from 'lucide-react';
@@ -47,6 +47,26 @@ export default function Elevators() {
     const current = SERVICES.find((s) => s.id === active);
 
     useEffect(preloadServiceImages, []);
+
+    // On phones the detail opens in place, and the one that closes above it would carry the
+    // tapped title up and out of sight. While the two animate, the page follows the title so it
+    // stays where it was pressed and its detail opens underneath.
+    const holdRef = useRef(0);
+    useEffect(() => () => cancelAnimationFrame(holdRef.current), []);
+    const open = (id, button) => {
+        if (id === active) return;
+        setActive(id);
+        cancelAnimationFrame(holdRef.current);
+        const top = button.getBoundingClientRect().top;
+        let until = 0;
+        const hold = (now) => {
+            until ||= now + 600;
+            const drift = button.getBoundingClientRect().top - top;
+            if (Math.abs(drift) > 0.5) window.scrollBy({ top: drift, behavior: 'instant' });
+            if (now < until) holdRef.current = requestAnimationFrame(hold);
+        };
+        holdRef.current = requestAnimationFrame(hold);
+    };
 
     return (
         <section id="ascensores" aria-labelledby="ascensores-title" className="bg-ground">
@@ -115,7 +135,7 @@ export default function Elevators() {
                                     <li key={s.id} className="border-b border-line">
                                         <button
                                             type="button"
-                                            onClick={() => setActive(s.id)}
+                                            onClick={(e) => open(s.id, e.currentTarget)}
                                             onMouseEnter={() => window.matchMedia('(hover: hover) and (min-width: 1024px)').matches && setActive(s.id)}
                                             aria-expanded={isActive}
                                             aria-controls={`servicio-${s.id}`}

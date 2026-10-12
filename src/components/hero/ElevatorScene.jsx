@@ -426,7 +426,7 @@ const yieldToMain = () =>
     (globalThis.scheduler?.yield ? globalThis.scheduler.yield() : new Promise((resolve) => setTimeout(resolve, 0)));
 
 /**
- * The lobby elevator. `progress` is a framer MotionValue (0..1) driven by scroll.
+ * The lobby elevator. `progress` is a framer MotionValue (0..1) that the hero plays in time.
  * Every rendered frame reports where the doorway is on screen through `onFrame`,
  * so the DOM lettering can ride on the doors.
  */
@@ -504,17 +504,21 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
 
         const frame = (now) => {
             raf = requestAnimationFrame(frame);
-            if (!state.visible) return;
-
             const target = staticMode ? 0 : progress.get();
             // Time-based damping, so the ride feels the same at any frame rate.
             const dt = Math.min(0.1, (now - state.prev) / 1000);
             state.prev = now;
-            state.p += (target - state.p) * (1 - Math.exp(-dt * 9));
-            if (Math.abs(target - state.p) < 0.0004) state.p = target;
-            const ease = 1 - Math.exp(-dt * 4);
-            state.px += (state.tx - state.px) * ease;
-            state.py += (state.ty - state.py) * ease;
+            if (state.visible) {
+                state.p += (target - state.p) * (1 - Math.exp(-dt * 9));
+                if (Math.abs(target - state.p) < 0.0004) state.p = target;
+                const ease = 1 - Math.exp(-dt * 4);
+                state.px += (state.tx - state.px) * ease;
+                state.py += (state.ty - state.py) * ease;
+            } else {
+                // Off screen the ride is not played: it holds the frame the page is at, so coming
+                // back to the hero never replays it from wherever it was left.
+                state.p = target;
+            }
 
             const intro = staticMode ? 1 : easeOutExpo(Math.min(1, Math.max(0, (now - state.start - 500) / 1500)));
             const crack = CRACK * intro;
@@ -551,8 +555,8 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
             state.ty = -((e.clientY / window.innerHeight) * 2 - 1);
         };
 
-        const io = new IntersectionObserver(([entry]) => {
-            state.visible = entry.isIntersecting;
+        const io = new IntersectionObserver((entries) => {
+            state.visible = entries[entries.length - 1].isIntersecting;
         });
         // Watch the whole hero, not the canvas: the canvas leaves the screen when the cabin travels out,
         // and the loop must keep running to bring it back.

@@ -354,7 +354,9 @@ export default function Software() {
         <section id="software" aria-labelledby="software-title" className="border-y border-line bg-surface">
             <div className="mx-auto max-w-[90rem] px-4 py-20 sm:px-6 md:py-28 lg:px-10">
                 <FloorHeader code="3" id="software-title" title="Cada visita queda registrada">
-                    Trabajamos con software propio: HTL Móvil, la app con la que cada técnico ejecuta la orden en campo, y HTL Panel, el portal donde usted la revisa. Sabe qué se hizo, quién lo hizo y con qué evidencia.
+                    Trabajamos con Operate Core, la plataforma desarrollada por{' '}
+                    <a href="https://landingpage-fortex.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-semibold text-ink underline">Fortex Business Solutions</a>{' '}
+                    y personalizada para nuestra empresa: HTL Móvil, la app con la que cada técnico ejecuta la orden en campo, y HTL Panel, el portal donde usted la revisa. Sabe qué se hizo, quién lo hizo y con qué evidencia.
                 </FloorHeader>
 
                 <div className="mt-14">

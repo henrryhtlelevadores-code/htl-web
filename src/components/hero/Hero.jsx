@@ -1,13 +1,13 @@
 import { Suspense, lazy, useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Link } from 'react-router-dom';
-import { useReducedMotion, useScroll } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
+import { animate, useMotionValue, useReducedMotion } from 'framer-motion';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 import ChevronsUp from '../ui/ChevronsUp';
 import HallDisplay from '../ui/HallDisplay';
 import logoWhite from '../../assets/logohtl.png';
 import { FLOORS } from '../../data/site';
 import { useTheme } from '../../lib/theme';
-import { isLiftCalled, setLiftCalled, setSceneStatus, subscribeLiftCalled } from '../../lib/sceneStatus';
+import { isLiftCalled, onRideSkipped, setSceneStatus, subscribeLiftCalled } from '../../lib/sceneStatus';
 import ElevatorCallButton from '../ui/ElevatorCallButton';
 import { CRACK, LEAF_TRAVEL, clamp01, doorwayLayout, openAt, solveRide, squashAt, sweepAt, CALL_STATION, DOOR_H, DOOR_W } from './geometry';
 
@@ -31,6 +31,13 @@ const ElevatorScene = lazy(() => sceneModule);
 // The wall station is laid out at this height (px) and scaled to its on-screen size.
 const STATION_BASE = 240;
 
+// The ride down, in seconds: the doors open and the camera steps in, the open cabin holds, then
+// it descends and the statement is written in. `at` places each stop of `stops` on that clock.
+const RIDE_DOWN = { stops: [0, 0.48, 0.5, 1], at: [0, 0.4, 0.58, 1], duration: 6.4, delay: 0.3 };
+const RIDE_UP = { duration: 3.4, delay: 0.3 };
+// The "Bajar" button sits on the doors, under the lettering (fraction of the doorway height).
+const GO_AT = 0.78;
+
 // Each line is cut at a letter boundary, so the seam between the leaves never slices a glyph.
 const HEADLINE = [['Su edi', 'ficio'], ['No', 'se'], ['Deti', 'ene']];
 
@@ -51,8 +58,13 @@ function DoorLettering({ side }) {
 export default function Hero() {
     const { theme } = useTheme();
     const reduce = useReducedMotion();
-    const trackRef = useRef(null);
     const stageRef = useRef(null);
+    const goRef = useRef(null);
+    const backRef = useRef(null);
+    const rideRef = useRef(null);
+    const cameBack = useRef(false);
+    // lobby (doors closed) | riding (going down) | arrived (statement hero) | returning (going back up)
+    const [ride, setRide] = useState('lobby');
     const doorwayRef = useRef(null);
     const leftRef = useRef(null);
     const rightRef = useRef(null);
@@ -68,7 +80,8 @@ export default function Hero() {
     const sceneLive = useRef(false);
     const lineRef = useRef(null);
 
-    const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] });
+    // The ride is played in time, not scrubbed by the page: 0 is the closed doors, 1 the statement.
+    const progress = useMotionValue(0);
 
     // One writer for everything that rides on the doors, fed by the scene or by the 2D fallback.
     const apply = useCallback(({ left, top, width, open, p, inFront }) => {
@@ -92,6 +105,10 @@ export default function Hero() {
             const sx = left + (CALL_STATION.x + DOOR_W / 2) * ppm - (sh * 13) / 60;
             const sy = top + (DOOR_H - CALL_STATION.y) * ppm - sh / 2;
             stationRef.current.style.transform = `translate3d(${sx}px, ${sy}px, 0) scale(${sh / STATION_BASE})`;
+        }
+        if (goRef.current) {
+            const gy = top + width * (DOOR_H / DOOR_W) * GO_AT;
+            goRef.current.style.transform = `translate3d(${left + width / 2}px, ${gy}px, 0) translate(-50%, -50%)`;
         }
 
         // With the interior shown, the cabin comes down: it flattens against the floor until it is a
@@ -137,27 +154,111 @@ export default function Hero() {
         doorway.style.setProperty('--dw', `${lay.width}px`);
         if (sceneLive.current) return;
 
-        const p = reduce ? 0 : scrollYProgress.get();
-        const ride = solveRide(vw, vh, p);
-        apply({ left: ride.left, top: ride.top, width: ride.width, open: CRACK + (1 - CRACK) * openAt(p), p, inFront: ride.inFront });
-    }, [apply, reduce, scrollYProgress]);
+        const p = reduce ? 0 : progress.get();
+        const at = solveRide(vw, vh, p);
+        apply({ left: at.left, top: at.top, width: at.width, open: CRACK + (1 - CRACK) * openAt(p), p, inFront: at.inFront });
+    }, [apply, reduce, progress]);
 
     useEffect(() => {
         drive2d();
         const ro = new ResizeObserver(drive2d);
         ro.observe(stageRef.current);
-        const off = scrollYProgress.on('change', drive2d);
+        const off = progress.on('change', drive2d);
         return () => {
             ro.disconnect();
             off();
         };
-    }, [drive2d, scrollYProgress]);
+    }, [drive2d, progress]);
 
-    const callFromLobby = useCallback(() => {
-        setLiftCalled(true);
-        const track = trackRef.current;
-        if (track) window.scrollTo({ top: track.offsetTop + (track.offsetHeight - window.innerHeight) * 0.46, behavior: 'smooth' });
-    }, []);
+    // Plays the ride to one end. The page is held at the top while it runs (see the lock below).
+    const travel = useCallback((down) => {
+        rideRef.current?.stop();
+        setRide(down ? 'riding' : 'returning');
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        const controls = down
+            ? animate(progress, RIDE_DOWN.stops, { times: RIDE_DOWN.at, duration: RIDE_DOWN.duration, delay: RIDE_DOWN.delay, ease: 'linear' })
+            : animate(progress, 0, { duration: RIDE_UP.duration, delay: RIDE_UP.delay, ease: 'linear' });
+        rideRef.current = controls;
+        controls.then(() => {
+            if (rideRef.current !== controls) return;
+            rideRef.current = null;
+            setRide(down ? 'arrived' : 'lobby');
+        });
+    }, [progress]);
+    const descend = useCallback(() => travel(true), [travel]);
+    const goBack = useCallback(() => {
+        cameBack.current = true;
+        travel(false);
+    }, [travel]);
+
+    useEffect(() => () => rideRef.current?.stop(), []);
+
+    // The intro's "skip" lands on the statement without the ride.
+    useEffect(() => onRideSkipped(() => {
+        if (reduce) return;
+        rideRef.current?.stop();
+        rideRef.current = null;
+        progress.set(1);
+        setRide('arrived');
+    }), [progress, reduce]);
+
+    // While the cabin travels the page does not scroll.
+    useEffect(() => {
+        if (ride !== 'riding' && ride !== 'returning') return undefined;
+        const root = document.documentElement;
+        const prev = root.style.overflow;
+        root.style.overflow = 'hidden';
+        return () => {
+            root.style.overflow = prev;
+        };
+    }, [ride]);
+
+    // At the closed doors, scrolling down is the same request as pressing "Bajar": the first
+    // wheel notch or upward swipe on the lobby sends the cabin down instead of moving the page.
+    useEffect(() => {
+        if (reduce || ride === 'arrived') return undefined;
+        const stage = stageRef.current;
+        const atLobby = () => ride === 'lobby' && window.scrollY < 8;
+        let startY = null;
+        const onWheel = (e) => {
+            if (e.ctrlKey) return;
+            if (ride !== 'lobby') e.preventDefault();
+            else if (e.deltaY > 0 && atLobby()) {
+                e.preventDefault();
+                descend();
+            }
+        };
+        const onTouchStart = (e) => {
+            startY = e.touches[0].clientY;
+        };
+        const onTouchMove = (e) => {
+            if (ride !== 'lobby') {
+                if (e.cancelable) e.preventDefault();
+            } else if (startY !== null && startY - e.touches[0].clientY > 6 && atLobby()) {
+                if (e.cancelable) e.preventDefault();
+                startY = null;
+                descend();
+            }
+        };
+        stage.addEventListener('wheel', onWheel, { passive: false });
+        stage.addEventListener('touchstart', onTouchStart, { passive: true });
+        stage.addEventListener('touchmove', onTouchMove, { passive: false });
+        return () => {
+            stage.removeEventListener('wheel', onWheel);
+            stage.removeEventListener('touchstart', onTouchStart);
+            stage.removeEventListener('touchmove', onTouchMove);
+        };
+    }, [ride, reduce, descend]);
+
+    // The control that was pressed fades out, so focus moves to the one that replaces it.
+    useEffect(() => {
+        if (document.activeElement && document.activeElement !== document.body) return;
+        if (ride === 'arrived') backRef.current?.focus({ preventScroll: true });
+        if (ride === 'lobby' && cameBack.current) {
+            cameBack.current = false;
+            goRef.current?.focus({ preventScroll: true });
+        }
+    }, [ride]);
 
     const onReady = useCallback(() => {
         sceneLive.current = true;
@@ -176,8 +277,8 @@ export default function Hero() {
     };
 
     return (
-        <section id="lobby" ref={trackRef} className={reduce ? 'relative h-svh' : 'relative h-[300svh]'} aria-labelledby="hero-title">
-            <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden bg-ground">
+        <section id="lobby" className="relative h-svh" aria-labelledby="hero-title">
+            <div ref={stageRef} className="relative h-svh overflow-hidden bg-ground">
                 <h1 id="hero-title" className="sr-only">Su edificio no se detiene</h1>
 
                 {/* Institutional hero. It waits behind the cabin on the page ground of the active theme
@@ -197,11 +298,21 @@ export default function Hero() {
                             style={{ '--edge': '100%', maskImage: REVEAL_MASK, WebkitMaskImage: REVEAL_MASK }}
                         >
                             <div className="flex max-w-3xl flex-col items-center text-center">
+                                {/* The only way back to the lobby: the page does not scroll up into it. */}
+                                <button
+                                    ref={backRef}
+                                    type="button"
+                                    onClick={goBack}
+                                    disabled={ride !== 'arrived'}
+                                    className="label mb-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-raised px-4 text-ink transition-colors hover:border-ink"
+                                >
+                                    <ArrowUp size={14} aria-hidden="true" /> Volver al ascensor
+                                </button>
                                 <p className="lettering text-[clamp(2rem,6vw,4.25rem)] text-ink">
                                     Seguridad, tecnología y continuidad operativa para su transporte vertical
                                 </p>
                                 <p className="mt-6 max-w-[56ch] text-base leading-relaxed text-pretty text-muted md:text-lg">
-                                    Mantenimiento multimarca de ascensores, emergencias 24/7 y facility management en Lima. Cada orden de trabajo queda registrada en nuestro propio software.
+                                    Mantenimiento multimarca de ascensores, emergencias 24/7 y facility management en Lima. Cada orden de trabajo queda registrada en nuestra plataforma digital.
                                 </p>
                                 <Link to={{ pathname: '/', hash: '#visita' }} className="btn-call btn-call--icon mt-8">
                                     <ChevronsUp /> Agendar visita sin cargo
@@ -227,7 +338,7 @@ export default function Hero() {
                         {sceneState !== 'failed' && (
                             <div className={`absolute inset-0 transition-opacity duration-300 ${sceneState === 'ready' ? 'opacity-100' : 'opacity-0'}`}>
                                 <ElevatorScene
-                                    progress={scrollYProgress}
+                                    progress={progress}
                                     theme={theme}
                                     staticMode={reduce}
                                     onFrame={apply}
@@ -246,12 +357,12 @@ export default function Hero() {
                         style={{ background: 'radial-gradient(ellipse 62% 70% at 50% 44%, transparent 38%, var(--ground) 100%)' }}
                     />
 
-                    {/* Hall call station on the lobby wall: the same panel the intro uses. Pressing it
-                        calls the lift, which here means riding the page to the open cabin. */}
+                    {/* Hall call station on the lobby wall: the same panel the intro uses. It rests
+                        unlit; its down button lights when the ride is requested, here or from "Bajar". */}
                     <ElevatorCallButton
                         ref={stationRef}
-                        lit={called}
-                        onCall={reduce ? undefined : callFromLobby}
+                        lit={ride === 'lobby' ? called && 'up' : ride === 'returning' ? 'up' : 'down'}
+                        onDown={reduce ? undefined : descend}
                         className="absolute left-0 top-0 origin-top-left will-change-transform"
                         style={{ height: STATION_BASE }}
                     />
@@ -287,6 +398,20 @@ export default function Hero() {
                     </div>
                 </div>
 
+                {/* The request to go down, on the doors under the lettering. Pressing it fades it
+                    out and presses the station's down button. */}
+                {!reduce && (
+                    <button
+                        ref={goRef}
+                        type="button"
+                        onClick={descend}
+                        disabled={ride !== 'lobby'}
+                        className={`btn-call btn-call--icon absolute left-0 top-0 will-change-transform transition-opacity duration-300 ${ride === 'lobby' ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+                    >
+                        Bajar <ArrowDown size={18} aria-hidden="true" />
+                    </button>
+                )}
+
                 {/* Left wall: the lobby directory. */}
                 <nav
                     ref={setFade(0)}
@@ -320,15 +445,6 @@ export default function Hero() {
                 >
                     <HallDisplay className="w-full max-w-[calc(56svh*5/8)]" />
                 </div>
-
-                {!reduce && (
-                    <p
-                        ref={setFade(3)}
-                        className="label absolute inset-x-0 bottom-[max(1.5rem,env(safe-area-inset-bottom))] flex items-center justify-center gap-2 text-muted"
-                    >
-                        Deslice para abrir las puertas <ArrowDown size={14} aria-hidden="true" />
-                    </p>
-                )}
             </div>
         </section>
     );
