@@ -4,11 +4,13 @@ import ProductCatalog from '../components/ui/ProductCatalog';
 import { ACCESSORIES, AROMA_DEVICES } from '../data/content';
 import { whatsappHref } from '../data/site';
 import { useStaticFloor } from '../lib/floor';
+import { usePageMeta } from '../lib/seo';
 
 const fmt = new Intl.NumberFormat('es-PE');
 
 const ProductsPage = () => {
     useStaticFloor('A', 'Almacén');
+    usePageMeta('productos');
 
     return (
         <div className="mx-auto max-w-[90rem] px-4 pb-24 pt-32 sm:px-6 lg:px-10">
@@ -51,7 +53,7 @@ const ProductsPage = () => {
                     Cotizar por WhatsApp
                 </a>
                 <Link to={{ pathname: '/', hash: '#visita' }} className="btn-ghost">
-                    Agendar visita diagnóstica <ArrowRight size={18} aria-hidden="true" />
+                    Agendar visita sin cargo <ArrowRight size={18} aria-hidden="true" />
                 </Link>
             </div>
         </div>

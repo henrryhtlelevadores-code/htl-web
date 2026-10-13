@@ -6,7 +6,7 @@ import FloorHeader from '../ui/FloorHeader';
 import DoorImage from '../ui/DoorImage';
 import ChevronsUp from '../ui/ChevronsUp';
 import CircleCheck from '../ui/CircleCheck';
-import emergencia from '../../assets/brochure/emergencia.jpg';
+import emergencia from '../../assets/brochure/emergencia.webp';
 import { BRANDS, EMERGENCY_SLAS, SERVICES } from '../../data/content';
 
 const Points = ({ points }) => (

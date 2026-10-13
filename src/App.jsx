@@ -6,9 +6,11 @@ import Footer from './components/layout/Footer';
 import WhatsAppButton from './components/layout/WhatsAppButton';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
+import LegalNoticePage from './pages/LegalNoticePage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
-import { ThemeProvider } from './lib/theme';
+import CookiesPage from './pages/CookiesPage';
+import NotFoundPage from './pages/NotFoundPage';
 import { FloorProvider } from './lib/floor';
 
 // Floor links are `/#id`; this rides to the floor after every navigation.
@@ -30,7 +32,6 @@ const ScrollToFloor = () => {
 };
 
 const App = () => (
-    <ThemeProvider>
         <FloorProvider>
             <MotionConfig reducedMotion="user">
                 <BrowserRouter>
@@ -43,8 +44,11 @@ const App = () => (
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/productos" element={<ProductsPage />} />
+                            <Route path="/aviso-legal" element={<LegalNoticePage />} />
                             <Route path="/terminos-y-condiciones" element={<TermsPage />} />
                             <Route path="/politicas-de-privacidad" element={<PrivacyPage />} />
+                            <Route path="/politica-de-cookies" element={<CookiesPage />} />
+                            <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </main>
                     <Footer />
@@ -52,7 +56,6 @@ const App = () => (
                 </BrowserRouter>
             </MotionConfig>
         </FloorProvider>
-    </ThemeProvider>
 );
 
 export default App;

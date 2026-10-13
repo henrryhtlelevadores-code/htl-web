@@ -1,19 +1,21 @@
 import { useId, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Mail, MapPin, MessageCircle, Minus, Phone, Plus } from 'lucide-react';
 import FloorHeader from '../ui/FloorHeader';
 import Select from '../ui/Select';
 import { EQUIPMENT_TYPES, SERVICE_OPTIONS } from '../../data/content';
 import { ADDRESS, EMAIL, PHONE_DISPLAY, TEL_HREF, whatsappHref } from '../../data/site';
+import { track } from '../../lib/analytics';
 
 const EMPTY_EQUIPOS = Object.fromEntries(EQUIPMENT_TYPES.map((t) => [t.id, 0]));
 
-const EMPTY = { nombre: '', telefono: '', edificio: '', servicio: SERVICE_OPTIONS[0], equipos: { ...EMPTY_EQUIPOS }, mensaje: '' };
+const EMPTY = { nombre: '', telefono: '', edificio: '', servicio: SERVICE_OPTIONS[0], equipos: { ...EMPTY_EQUIPOS }, mensaje: '', acepta: false };
 
 const validate = (data) => {
     const errors = {};
     if (!data.nombre.trim()) errors.nombre = 'Indique su nombre para saber con quién coordinar.';
     if (data.telefono.replace(/\D/g, '').length < 7) errors.telefono = 'Ingrese un teléfono con al menos 7 dígitos.';
+    if (!data.acepta) errors.acepta = 'Marque la casilla para aceptar la Política de Privacidad.';
     return errors;
 };
 
@@ -89,12 +91,14 @@ export default function Visit() {
         e.preventDefault();
         if (!check()) return;
         window.open(whatsappHref(compose(data)), '_blank', 'noopener');
+        track('form_submit', { form: 'visita', channel: 'whatsapp' });
         setSent(true);
     };
 
     const onMail = () => {
         if (!check()) return;
         window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Solicitud de visita diagnóstica')}&body=${encodeURIComponent(compose(data))}`;
+        track('form_submit', { form: 'visita', channel: 'correo' });
         setSent(true);
     };
 
@@ -173,7 +177,8 @@ export default function Visit() {
                                 <span>Equipos a atender</span>
                                 <span className="font-normal text-on-brand-muted">Opcional</span>
                             </div>
-                            <div className="grid gap-2.5 sm:grid-cols-2">
+                            {/* Touch screens get 44px steppers in one column; a mouse gets the compact pair. */}
+                            <div className="grid gap-2.5 pointer-fine:sm:grid-cols-2">
                                 {EQUIPMENT_TYPES.map((t) => {
                                     const qty = Number(data.equipos[t.id] || 0);
                                     return (
@@ -185,7 +190,7 @@ export default function Visit() {
                                                     onClick={() => setEquipo(t.id, qty - 1)}
                                                     disabled={qty === 0}
                                                     aria-label={`Quitar un equipo: ${t.label}`}
-                                                    className="grid h-8 w-8 place-items-center rounded-lg border border-white/25 text-on-brand transition-colors hover:bg-white/10 active:scale-95 disabled:opacity-40 disabled:hover:bg-transparent"
+                                                    className="grid h-11 w-11 place-items-center rounded-lg border border-white/25 pointer-fine:h-8 pointer-fine:w-8 text-on-brand transition-colors hover:bg-white/10 active:scale-95 disabled:opacity-40 disabled:hover:bg-transparent"
                                                 >
                                                     <Minus size={15} aria-hidden="true" />
                                                 </button>
@@ -198,13 +203,13 @@ export default function Visit() {
                                                     placeholder="0"
                                                     onChange={(e) => setEquipo(t.id, e.target.value)}
                                                     aria-label={`Cantidad de ${t.label}`}
-                                                    className="no-spin h-8 w-11 rounded-lg border border-white/25 bg-transparent text-center text-sm font-semibold text-on-brand outline-none transition-colors focus:border-led"
+                                                    className="no-spin h-11 w-11 rounded-lg pointer-fine:h-8 border border-white/25 bg-transparent text-center text-sm font-semibold text-on-brand outline-none transition-colors focus:border-led"
                                                 />
                                                 <button
                                                     type="button"
                                                     onClick={() => setEquipo(t.id, qty + 1)}
                                                     aria-label={`Agregar un equipo: ${t.label}`}
-                                                    className="grid h-8 w-8 place-items-center rounded-lg border border-white/25 text-on-brand transition-colors hover:bg-white/10 active:scale-95"
+                                                    className="grid h-11 w-11 place-items-center rounded-lg border border-white/25 pointer-fine:h-8 pointer-fine:w-8 text-on-brand transition-colors hover:bg-white/10 active:scale-95"
                                                 >
                                                     <Plus size={15} aria-hidden="true" />
                                                 </button>
@@ -225,6 +230,30 @@ export default function Visit() {
                                 <textarea rows={3} {...fieldProps('mensaje')} className="field resize-y" />
                             </Field>
                         </div>
+                    </div>
+
+                    {/* Consent to the treatment of the data in the form (Ley N° 29733). */}
+                    <div className="mt-6">
+                        <label htmlFor={`${uid}-acepta`} className="flex min-h-11 cursor-pointer items-center gap-3 text-sm leading-snug">
+                            <input
+                                id={`${uid}-acepta`}
+                                type="checkbox"
+                                name="acepta"
+                                checked={data.acepta}
+                                onChange={(e) => {
+                                    setData((d) => ({ ...d, acepta: e.target.checked }));
+                                    if (errors.acepta) setErrors((prev) => ({ ...prev, acepta: undefined }));
+                                }}
+                                aria-invalid={errors.acepta ? 'true' : undefined}
+                                aria-describedby={errors.acepta ? `${uid}-acepta-error` : undefined}
+                                className="h-5 w-5 shrink-0 accent-white"
+                            />
+                            <span>
+                                He leído y acepto la{' '}
+                                <Link to="/politicas-de-privacidad" className="font-semibold underline">Política de Privacidad</Link>.
+                            </span>
+                        </label>
+                        {errors.acepta && <p id={`${uid}-acepta-error`} className="mt-1.5 text-sm font-medium text-[#ffd9d3]">{errors.acepta}</p>}
                     </div>
 
                     <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]">

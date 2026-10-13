@@ -1,6 +1,31 @@
 import React, { useState } from 'react';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Book } from 'lucide-react';
+import { EMAIL } from '../../data/site';
+import { track } from '../../lib/analytics';
+
+// The sheet as it is sent, field by field.
+const compose = (d) => [
+    'HOJA DE RECLAMACIÓN',
+    `Fecha: ${new Date().toLocaleDateString('es-PE')}`,
+    '',
+    '1. Consumidor reclamante',
+    `Nombre o razón social: ${d.nombreRazonSocial.trim()}`,
+    `Documento: ${d.tipoDocumento} ${d.numeroDocumento.trim()}`,
+    `Dirección: ${d.direccion.trim()}`,
+    `Celular: ${d.celular.trim()}`,
+    `Correo: ${d.correo.trim()}`,
+    '',
+    '2. Bien contratado y detalle',
+    `Tipo de registro: ${d.tipoRegistro}`,
+    `Tipo de bien: ${d.tipoBien}`,
+    `Comprobante: ${d.tipoComprobante}${d.nombreComprobante.trim() ? ` ${d.nombreComprobante.trim()}` : ''}`,
+    d.detalleBien.trim() ? `Descripción del bien o servicio: ${d.detalleBien.trim()}` : null,
+    `Detalle: ${d.detalleReclamo.trim()}`,
+    d.pedidoCliente.trim() ? `Pedido del consumidor: ${d.pedidoCliente.trim()}` : null,
+    '',
+    'Declaro ser el titular del contenido de este formulario, manifestando bajo declaración jurada los hechos descritos en él.',
+].filter((line) => line !== null).join('\n');
 
 const ComplaintsBook = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
@@ -52,8 +77,12 @@ const ComplaintsBook = ({ isOpen, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            console.log('Libro de Reclamaciones - Datos:', formData);
-            alert('Su reclamo/queja ha sido enviado exitosamente. Nos comunicaremos con usted en el plazo establecido por ley.');
+            // There is no server behind this form: the sheet is handed to the visitor's mail client,
+            // addressed to the company, and it is sent (and kept as a copy) from their own account.
+            const subject = `Libro de Reclamaciones: ${formData.tipoRegistro} de ${formData.nombreRazonSocial.trim()}`;
+            window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(compose(formData))}`;
+            track('form_submit', { form: 'libro-de-reclamaciones', channel: 'correo' });
+            alert(`Abrimos su correo con la hoja de reclamación ya redactada. Envíela para que quede registrada: conservará una copia en sus enviados. Si su correo no se abrió, escríbanos a ${EMAIL}.`);
             onClose();
             setFormData({
                 nombreRazonSocial: '',
@@ -122,10 +151,10 @@ const ComplaintsBook = ({ isOpen, onClose }) => {
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Nombre / Razón Social *</label>
                                             <input
                                                 type="text" name="nombreRazonSocial" value={formData.nombreRazonSocial} onChange={handleChange}
-                                                className={`w-full bg-[#2A2A2A] border ${errors.nombreRazonSocial ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
+                                                className={`w-full bg-[#2A2A2A] border ${errors.nombreRazonSocial ? 'border-accent' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
                                                 placeholder="Ej: Juan Perez o Empresa S.A.C."
                                             />
-                                            {errors.nombreRazonSocial && <p className="text-red-500 text-[10px] mt-1 uppercase font-bold">{errors.nombreRazonSocial}</p>}
+                                            {errors.nombreRazonSocial && <p className="text-accent text-[10px] mt-1 uppercase font-bold">{errors.nombreRazonSocial}</p>}
                                         </div>
                                         <div>
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Tipo de Documento</label>
@@ -142,37 +171,37 @@ const ComplaintsBook = ({ isOpen, onClose }) => {
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Número de Documento *</label>
                                             <input
                                                 type="text" name="numeroDocumento" value={formData.numeroDocumento} onChange={handleChange}
-                                                className={`w-full bg-[#2A2A2A] border ${errors.numeroDocumento ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
+                                                className={`w-full bg-[#2A2A2A] border ${errors.numeroDocumento ? 'border-accent' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
                                                 placeholder="Número de DNI/CE/Pasaporte"
                                             />
-                                            {errors.numeroDocumento && <p className="text-red-500 text-[10px] mt-1 uppercase font-bold">{errors.numeroDocumento}</p>}
+                                            {errors.numeroDocumento && <p className="text-accent text-[10px] mt-1 uppercase font-bold">{errors.numeroDocumento}</p>}
                                         </div>
                                         <div className="md:col-span-2">
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Dirección Completa *</label>
                                             <input
                                                 type="text" name="direccion" value={formData.direccion} onChange={handleChange}
-                                                className={`w-full bg-[#2A2A2A] border ${errors.direccion ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
+                                                className={`w-full bg-[#2A2A2A] border ${errors.direccion ? 'border-accent' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
                                                 placeholder="Calle, Número, Distrito, Ciudad"
                                             />
-                                            {errors.direccion && <p className="text-red-500 text-[10px] mt-1 uppercase font-bold">{errors.direccion}</p>}
+                                            {errors.direccion && <p className="text-accent text-[10px] mt-1 uppercase font-bold">{errors.direccion}</p>}
                                         </div>
                                         <div>
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Celular / Teléfono *</label>
                                             <input
                                                 type="tel" name="celular" value={formData.celular} onChange={handleChange}
-                                                className={`w-full bg-[#2A2A2A] border ${errors.celular ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
+                                                className={`w-full bg-[#2A2A2A] border ${errors.celular ? 'border-accent' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
                                                 placeholder="+51 999 999 999"
                                             />
-                                            {errors.celular && <p className="text-red-500 text-[10px] mt-1 uppercase font-bold">{errors.celular}</p>}
+                                            {errors.celular && <p className="text-accent text-[10px] mt-1 uppercase font-bold">{errors.celular}</p>}
                                         </div>
                                         <div>
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Correo Electrónico *</label>
                                             <input
                                                 type="email" name="correo" value={formData.correo} onChange={handleChange}
-                                                className={`w-full bg-[#2A2A2A] border ${errors.correo ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
+                                                className={`w-full bg-[#2A2A2A] border ${errors.correo ? 'border-accent' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
                                                 placeholder="ejemplo@correo.com"
                                             />
-                                            {errors.correo && <p className="text-red-500 text-[10px] mt-1 uppercase font-bold">{errors.correo}</p>}
+                                            {errors.correo && <p className="text-accent text-[10px] mt-1 uppercase font-bold">{errors.correo}</p>}
                                         </div>
                                     </div>
                                 </div>
@@ -241,10 +270,10 @@ const ComplaintsBook = ({ isOpen, onClose }) => {
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Detalle de queja o reclamo *</label>
                                             <textarea
                                                 name="detalleReclamo" value={formData.detalleReclamo} onChange={handleChange}
-                                                className={`w-full bg-[#2A2A2A] border ${errors.detalleReclamo ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
+                                                className={`w-full bg-[#2A2A2A] border ${errors.detalleReclamo ? 'border-accent' : 'border-white/10'} rounded-xl px-4 py-3 text-white focus:border-primary transition-colors outline-none`}
                                                 rows="4" placeholder="Describa ampliamente los hechos ocurridos..."
                                             ></textarea>
-                                            {errors.detalleReclamo && <p className="text-red-500 text-[10px] mt-1 uppercase font-bold">{errors.detalleReclamo}</p>}
+                                            {errors.detalleReclamo && <p className="text-accent text-[10px] mt-1 uppercase font-bold">{errors.detalleReclamo}</p>}
                                         </div>
                                         <div>
                                             <label className="block text-slate-300 text-xs font-bold uppercase mb-2">Pedido del cliente</label>
@@ -269,7 +298,7 @@ const ComplaintsBook = ({ isOpen, onClose }) => {
                                             <p className="text-slate-400 text-xs leading-relaxed">
                                                 Declaro ser el titular del contenido del presente formulario, manifestando bajo declaración jurada los hechos descritos en él.
                                             </p>
-                                            {errors.conformidad && <p className="text-red-500 text-[10px] uppercase font-bold mt-1">{errors.conformidad}</p>}
+                                            {errors.conformidad && <p className="text-accent text-[10px] uppercase font-bold mt-1">{errors.conformidad}</p>}
                                         </div>
                                     </label>
                                 </div>
@@ -280,7 +309,7 @@ const ComplaintsBook = ({ isOpen, onClose }) => {
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         type="submit"
-                                        className="flex-1 bg-primary hover:bg-red-700 text-white font-800 py-4 rounded-xl shadow-xl shadow-primary/20 uppercase tracking-widest text-sm flex items-center justify-center gap-3 transition-colors"
+                                        className="flex-1 bg-primary hover:bg-brand-deep text-white font-800 py-4 rounded-xl shadow-xl shadow-primary/20 uppercase tracking-widest text-sm flex items-center justify-center gap-3 transition-colors"
                                     >
                                         <Send size={18} />
                                         Enviar Reclamación

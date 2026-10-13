@@ -3,21 +3,68 @@
 
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>HTL Elevadores | Mantenimiento multimarca de ascensores y facility management en Lima</title>
-  <meta name="description"
-    content="Mantenimiento, reparación y modernización multimarca de ascensores, emergencias 24/7, limpieza profesional ProClean y aromatización de ambientes en Lima. Agende una visita diagnóstica sin cargo." />
+  <!-- These are the home page's. The build writes one HTML file per page with its own (see
+       pageFiles in vite.config.js), and src/lib/seo.js swaps them when navigating inside the
+       site. All three read src/data/seo.js; npm run check:seo keeps this file in step. -->
+  <title>Mantenimiento de Ascensores en Lima | HTL Elevadores</title>
+  <meta name="description" content="Mantenimiento, reparación y modernización multimarca de ascensores en Lima, con emergencias 24/7. Agende una visita diagnóstica sin cargo para su edificio." />
+  <link rel="canonical" href="https://www.htl-elevadores.com/" />
   <meta name="theme-color" content="#0d0e10" />
-  <script>
-    // Set the theme before first paint so the page never flashes the wrong ground.
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.classList.toggle('dark', dark);
-      } catch (e) { }
-    })();
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="HTL Elevadores" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="Mantenimiento de Ascensores en Lima | HTL Elevadores" />
+  <meta property="og:description" content="Mantenimiento, reparación y modernización multimarca de ascensores en Lima, con emergencias 24/7. Agende una visita diagnóstica sin cargo para su edificio." />
+  <meta property="og:url" content="https://www.htl-elevadores.com/" />
+  <meta property="og:image" content="https://www.htl-elevadores.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mantenimiento de Ascensores en Lima | HTL Elevadores" />
+  <meta name="twitter:description" content="Mantenimiento, reparación y modernización multimarca de ascensores en Lima, con emergencias 24/7. Agende una visita diagnóstica sin cargo para su edificio." />
+  <meta name="twitter:image" content="https://www.htl-elevadores.com/og-image.png" />
+  <!-- The business, for search engines. Only facts published elsewhere on the site. -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://www.htl-elevadores.com/#empresa",
+  "name": "HTL Elevadores",
+  "legalName": "HTL ELEVADORES S.A.C.",
+  "taxID": "20614626241",
+  "description": "Mantenimiento, reparación y modernización multimarca de ascensores, montacargas y plataformas en Lima, con atención de emergencias 24/7.",
+  "url": "https://www.htl-elevadores.com/",
+  "logo": "https://www.htl-elevadores.com/android-chrome-512x512.png",
+  "image": "https://www.htl-elevadores.com/og-image.png",
+  "telephone": "+51963207058",
+  "email": "comercial@htl-elevadores.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Cal. Laurel Rosa Mz. G1 Lote 14",
+    "addressLocality": "Surquillo",
+    "addressRegion": "Lima",
+    "addressCountry": "PE"
+  },
+  "areaServed": { "@type": "City", "name": "Lima" },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de transporte vertical",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento preventivo de ascensores" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento correctivo y reparación de ascensores" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Modernización de ascensores, por componentes o total" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Remozamiento de cabina" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Atención de emergencias y rescate de personas atrapadas, 24/7" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalación de equipos nuevos" } }
+    ]
+  }
+}
   </script>
 </head>
 

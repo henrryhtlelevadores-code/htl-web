@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion as Motion, useInView, useReducedMotion } from 'framer-motion';
 import { Camera, Check, ChevronDown, CloudCheck, FileText, Lock, Mic, Monitor, PenLine, ShieldCheck, Smartphone, WifiOff } from 'lucide-react';
 import FloorHeader from '../ui/FloorHeader';
-import cabina from '../../assets/brochure/cabina-antes-despues.jpg';
+import cabina from '../../assets/brochure/cabina-antes-despues.webp';
 import { APP_FEATURES, ORDER_STEPS, PANEL_VIEWS } from '../../data/content';
 
 const TONES = {

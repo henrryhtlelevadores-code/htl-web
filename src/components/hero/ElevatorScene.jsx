@@ -40,10 +40,7 @@ const BACK_Z = CABIN.front - CABIN.d;
 const LOGO_Y = 1.25;
 const LOGO_W = 0.66;
 
-const PALETTE = {
-    dark: { bg: '#0d0e10', wall: '#0b0c0e', floor: '#040405', door: '#636970', frame: '#c2c5ca', env: 0.36, sun: 0.75, hemi: 0.22 },
-    light: { bg: '#ecedef', wall: '#b9bcc1', floor: '#8e9299', door: '#e6e9ec', frame: '#ffffff', env: 0.5, sun: 0.55, hemi: 0.5 },
-};
+const LOBBY = { bg: '#0d0e10', wall: '#0b0c0e', floor: '#040405', door: '#636970', frame: '#c2c5ca', env: 0.36, sun: 0.75, hemi: 0.22 };
 
 function spillTexture() {
     const c = document.createElement('canvas');
@@ -430,9 +427,8 @@ const yieldToMain = () =>
  * Every rendered frame reports where the doorway is on screen through `onFrame`,
  * so the DOM lettering can ride on the doors.
  */
-export default function ElevatorScene({ progress, theme, staticMode, onFrame, onReady, onFail }) {
+export default function ElevatorScene({ progress, staticMode, onFrame, onReady, onFail }) {
     const canvasRef = useRef(null);
-    const apiRef = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -478,8 +474,8 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
 
         const state = { p: progress.get(), px: 0, py: 0, tx: 0, ty: 0, vw: 1, vh: 1, visible: true, start: performance.now(), prev: performance.now(), last: '' };
 
-        const applyTheme = (name) => {
-            const c = PALETTE[name] ?? PALETTE.dark;
+        {
+            const c = LOBBY;
             scene.background.set(c.bg);
             parts.mats.wall.color.set(c.wall);
             parts.mats.floor.color.set(c.floor);
@@ -488,8 +484,7 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
             scene.environmentIntensity = c.env;
             parts.sun.intensity = c.sun;
             parts.hemi.intensity = c.hemi;
-            scene.userData.dirty = true;
-        };
+        }
 
         const resize = () => {
             const rect = canvas.parentElement.getBoundingClientRect();
@@ -565,8 +560,6 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
         ro.observe(canvas.parentElement);
         window.addEventListener('pointermove', onPointer, { passive: true });
 
-        apiRef.current = { applyTheme };
-        applyTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
         resize();
         dispose = () => {
             cancelAnimationFrame(raf);
@@ -584,7 +577,6 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
             envTarget.dispose();
             pmrem.dispose();
             renderer.dispose();
-            apiRef.current = null;
         };
 
         // Compile the shaders off the main thread where the browser allows it, instead of
@@ -618,13 +610,9 @@ export default function ElevatorScene({ progress, theme, staticMode, onFrame, on
             cancelled = true;
             dispose();
         };
-        // The scene is built once; theme changes go through apiRef below.
+        // The scene is built once.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        apiRef.current?.applyTheme(theme);
-    }, [theme]);
 
     return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />;
 }

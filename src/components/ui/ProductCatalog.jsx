@@ -181,7 +181,7 @@ export default function ProductCatalog({ limit, children }) {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Buscar producto…"
                     autoComplete="off"
-                    className="min-h-11 w-full rounded-[3px] border border-line bg-raised pl-10 pr-11 text-base text-ink outline-none transition-colors placeholder:text-muted focus:border-ink"
+                    className="min-h-11 w-full rounded-[3px] border border-steel bg-raised pl-10 pr-11 text-base text-ink outline-none transition-colors placeholder:text-muted focus:border-ink"
                 />
                 {query && (
                     <button type="button" onClick={() => setQuery('')} aria-label="Borrar búsqueda" className="absolute right-0 top-0 grid h-11 w-11 place-items-center text-muted transition-colors hover:text-ink">
@@ -190,7 +190,7 @@ export default function ProductCatalog({ limit, children }) {
                 )}
             </div>
 
-            {/* The shelf: one dark stage in both themes, each gallon under its own light. */}
+            {/* The shelf: one dark stage, each gallon under its own light. */}
             <div className="relative mt-6 overflow-hidden bg-[#0b0c0e] px-4 py-8 text-white ring-1 ring-white/[0.07] sm:px-8 sm:py-10">
                 <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(60%_100%_at_50%_0%,rgb(255_255_255/0.06),transparent)]" />
 

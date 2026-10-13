@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion';
-import { Menu, Moon, Phone, Sun, X } from 'lucide-react';
+import { Menu, Phone, X } from 'lucide-react';
 import Logo from './Logo';
 import SevenSegment from '../ui/SevenSegment';
 import ChevronsUp from '../ui/ChevronsUp';
 import { FLOORS, PHONE_DISPLAY, TEL_HREF } from '../../data/site';
 import { useFloor } from '../../lib/floor';
-import { useTheme } from '../../lib/theme';
 
 const floorTo = (id) => ({ pathname: '/', hash: `#${id}` });
 
@@ -15,7 +14,7 @@ function Readout() {
     const { floor, direction } = useFloor();
     return (
         <div
-            className="ml-1 hidden h-10 items-center gap-2 rounded-[3px] bg-raised px-2.5 ring-1 ring-line lg:flex dark:bg-[#08090a] dark:ring-white/10 sm:ml-3"
+            className="ml-1 hidden h-10 items-center gap-2 rounded-[3px] bg-[#08090a] px-2.5 ring-1 ring-white/10 lg:flex sm:ml-3"
             role="status"
             aria-label={`Piso actual: ${floor.name}`}
         >
@@ -23,13 +22,12 @@ function Readout() {
                 <path d="M6 1.5 11 9.5H1z" fill="var(--led)" />
             </svg>
             <SevenSegment char={floor.code} className="h-6 w-auto" />
-            <span className="label max-w-36 truncate pl-1 text-muted dark:text-white/75">{floor.name}</span>
+            <span className="label max-w-36 truncate pl-1 text-white/75">{floor.name}</span>
         </div>
     );
 }
 
 export default function Navbar() {
-    const { theme, toggleTheme } = useTheme();
     const { floor } = useFloor();
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -65,7 +63,7 @@ export default function Navbar() {
                 style={{ paddingTop: 'env(safe-area-inset-top)' }}
             >
                 <div className="mx-auto flex h-16 max-w-[90rem] items-center gap-3 px-4 sm:px-6 lg:px-10">
-                    <Link to={floorTo('lobby')} className="shrink-0" aria-label="HTL Elevadores, inicio">
+                    <Link to={floorTo('lobby')} className="flex min-h-11 shrink-0 items-center" aria-label="HTL Elevadores, inicio">
                         <Logo className="h-8 w-auto sm:h-9" />
                     </Link>
 
@@ -88,15 +86,7 @@ export default function Navbar() {
                     </nav>
 
                     <div className="ml-auto flex items-center gap-2 md:ml-3">
-                        <button
-                            type="button"
-                            onClick={toggleTheme}
-                            className="grid h-11 w-11 place-items-center rounded-[3px] text-muted transition-colors hover:text-ink"
-                            aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-                        >
-                            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                        </button>
-                        <Link to={floorTo('visita')} className="btn-call btn-call--icon shrink-0 rounded-full !min-h-10 !px-3.5 !py-2 !text-sm md:!min-h-11 md:!px-5 md:!py-2.5 md:!text-[0.95rem]">
+                        <Link to={floorTo('visita')} className="btn-call btn-call--icon shrink-0 rounded-full !min-h-11 !px-3.5 !py-2 !text-sm md:!px-5 md:!py-2.5 md:!text-[0.95rem]">
                             <ChevronsUp />
                             <span className="md:hidden">Agendar</span>
                             <span className="hidden md:inline">Agendar visita</span>
@@ -145,7 +135,7 @@ export default function Navbar() {
                             </ul>
                             <div className="mt-6 grid gap-3">
                                 <Link to={floorTo('visita')} onClick={() => setOpen(false)} className="btn-call">
-                                    Agendar visita diagnóstica
+                                    Agendar visita sin cargo
                                 </Link>
                                 <a href={TEL_HREF} className="btn-ghost">
                                     <Phone size={18} aria-hidden="true" /> {PHONE_DISPLAY}

@@ -1,11 +1,5 @@
-import logoDark from '../../assets/logohtl.png';
-import logoLight from '../../assets/logohtlrojo.png';
+import logo from '../../assets/logohtl.png';
 
-const Logo = ({ className }) => (
-    <>
-        <img src={logoDark} alt="HTL Elevadores" className={`${className} hidden dark:block`} />
-        <img src={logoLight} alt="HTL Elevadores" className={`${className} dark:hidden`} />
-    </>
-);
+const Logo = ({ className }) => <img src={logo} alt="HTL Elevadores" className={className} />;
 
 export default Logo;

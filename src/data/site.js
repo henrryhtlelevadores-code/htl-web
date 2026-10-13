@@ -5,6 +5,10 @@ export const EMAIL = 'comercial@htl-elevadores.com';
 export const ADDRESS = 'Surquillo, Lima, Perú';
 export const LEGAL_NAME = 'HTL ELEVADORES S.A.C.';
 export const RUC = '20614626241';
+export const LEGAL_ADDRESS = 'Cal. Laurel Rosa Mz. G1 Lote 14, Distrito de Surquillo, Provincia y Departamento de Lima, Perú';
+export const LEGAL_REPRESENTATIVE = 'Henrry Abner Díaz Cueva';
+// Fired by a page that wants the footer to open the complaints book.
+export const COMPLAINTS_EVENT = 'htl:libro-de-reclamaciones';
 
 export const whatsappHref = (text = 'Hola, quisiera agendar una visita diagnóstica.') =>
     `https://wa.me/${PHONE_E164}?text=${encodeURIComponent(text)}`;
@@ -12,12 +16,12 @@ export const whatsappHref = (text = 'Hola, quisiera agendar una visita diagnóst
 // The building. Each home section is a floor; `code` is what the readout shows.
 export const FLOORS = [
     { id: 'lobby', code: 'L', name: 'Lobby' },
-    { id: 'respaldo', code: '1', name: 'Respaldo' },
-    { id: 'ascensores', code: '2', name: 'Ascensores' },
+    { id: 'respaldo', code: '1', name: 'Nosotros' },
+    { id: 'ascensores', code: '2', name: 'Servicios' },
     { id: 'software', code: '3', name: 'Software' },
-    { id: 'facility', code: '4', name: 'Limpieza' },
-    { id: 'ambientes', code: '5', name: 'Aromas' },
-    { id: 'visita', code: '6', name: 'Visita' },
+    { id: 'facility', code: '4', name: 'Productos' },
+    { id: 'ambientes', code: '5', name: 'Aromatizantes' },
+    { id: 'visita', code: '6', name: 'Contacto' },
 ];
 
 export const floorById = (id) => FLOORS.find((f) => f.id === id);

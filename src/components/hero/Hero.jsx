@@ -6,7 +6,6 @@ import ChevronsUp from '../ui/ChevronsUp';
 import HallDisplay from '../ui/HallDisplay';
 import logoWhite from '../../assets/logohtl.png';
 import { FLOORS } from '../../data/site';
-import { useTheme } from '../../lib/theme';
 import { isLiftCalled, onRideSkipped, setSceneStatus, subscribeLiftCalled } from '../../lib/sceneStatus';
 import ElevatorCallButton from '../ui/ElevatorCallButton';
 import { CRACK, LEAF_TRAVEL, clamp01, doorwayLayout, openAt, solveRide, squashAt, sweepAt, CALL_STATION, DOOR_H, DOOR_W } from './geometry';
@@ -56,7 +55,6 @@ function DoorLettering({ side }) {
 }
 
 export default function Hero() {
-    const { theme } = useTheme();
     const reduce = useReducedMotion();
     const stageRef = useRef(null);
     const goRef = useRef(null);
@@ -281,7 +279,7 @@ export default function Hero() {
             <div ref={stageRef} className="relative h-svh overflow-hidden bg-ground">
                 <h1 id="hero-title" className="sr-only">Su edificio no se detiene</h1>
 
-                {/* Institutional hero. It waits behind the cabin on the page ground of the active theme
+                {/* Institutional hero. It waits behind the cabin on the page ground
                     and is uncovered when the cabin descends out of the shaft. */}
                 {!reduce && (
                     <div
@@ -339,7 +337,6 @@ export default function Hero() {
                             <div className={`absolute inset-0 transition-opacity duration-300 ${sceneState === 'ready' ? 'opacity-100' : 'opacity-0'}`}>
                                 <ElevatorScene
                                     progress={progress}
-                                    theme={theme}
                                     staticMode={reduce}
                                     onFrame={apply}
                                     onReady={onReady}

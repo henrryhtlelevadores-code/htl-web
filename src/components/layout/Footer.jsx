@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
 import Logo from './Logo';
 import ComplaintsBook from './ComplaintsBook';
-import { ADDRESS, EMAIL, FLOORS, LEGAL_NAME, PHONE_DISPLAY, RUC, TEL_HREF } from '../../data/site';
+import { ADDRESS, COMPLAINTS_EVENT, EMAIL, FLOORS, LEGAL_NAME, PHONE_DISPLAY, RUC, TEL_HREF } from '../../data/site';
 
-const linkClass = 'inline-flex min-h-9 items-center text-muted transition-colors hover:text-ink';
+const linkClass = 'inline-flex min-h-11 items-center text-muted transition-colors hover:text-ink';
 
 const Footer = () => {
     const [isComplaintsOpen, setIsComplaintsOpen] = useState(false);
+
+    // The legal pages link to the complaints book, which lives here.
+    useEffect(() => {
+        const open = () => setIsComplaintsOpen(true);
+        window.addEventListener(COMPLAINTS_EVENT, open);
+        return () => window.removeEventListener(COMPLAINTS_EVENT, open);
+    }, []);
 
     return (
         <footer className="border-t border-line bg-ground">
@@ -42,15 +49,17 @@ const Footer = () => {
                         <ul className="mt-3">
                             <li><a href={TEL_HREF} className={linkClass}>{PHONE_DISPLAY}</a></li>
                             <li><a href={`mailto:${EMAIL}`} className={`${linkClass} break-all`}>{EMAIL}</a></li>
-                            <li className="flex min-h-9 items-center text-muted">{ADDRESS}</li>
+                            <li className="flex min-h-11 items-center text-muted">{ADDRESS}</li>
                         </ul>
                     </div>
 
                     <div>
                         <h2 className="label text-muted">Legales</h2>
                         <ul className="mt-3">
+                            <li><Link to="/aviso-legal" className={linkClass}>Aviso legal</Link></li>
                             <li><Link to="/terminos-y-condiciones" className={linkClass}>Términos y condiciones</Link></li>
                             <li><Link to="/politicas-de-privacidad" className={linkClass}>Política de privacidad</Link></li>
+                            <li><Link to="/politica-de-cookies" className={linkClass}>Política de cookies</Link></li>
                             <li>
                                 <button type="button" onClick={() => setIsComplaintsOpen(true)} className={`${linkClass} gap-2`}>
                                     <BookOpen size={16} aria-hidden="true" /> Libro de reclamaciones
@@ -62,6 +71,9 @@ const Footer = () => {
 
                 <p className="mt-12 border-t border-line pt-6 text-sm text-muted">
                     © {new Date().getFullYear()} {LEGAL_NAME} · RUC {RUC}. Todos los derechos reservados.
+                </p>
+                <p className="mt-2 text-sm text-muted">
+                    Creada por Fortex Business Solutions
                 </p>
             </div>
             <ComplaintsBook isOpen={isComplaintsOpen} onClose={() => setIsComplaintsOpen(false)} />

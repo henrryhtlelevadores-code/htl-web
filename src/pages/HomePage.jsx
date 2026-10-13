@@ -7,9 +7,11 @@ import Facility from '../components/sections/Facility';
 import Aroma from '../components/sections/Aroma';
 import Visit from '../components/sections/Visit';
 import { useFloorTracking } from '../lib/floor';
+import { usePageMeta } from '../lib/seo';
 
 const HomePage = () => {
     useFloorTracking();
+    usePageMeta('home');
     return (
         <>
             <CallIntro />

@@ -1,14 +1,14 @@
-import preventivo from '../assets/services/preventivo.jpg';
-import suministro from '../assets/services/correctivo-suministro.jpg';
-import reparacion from '../assets/services/correctivo-reparacion.jpg';
-import pulido from '../assets/services/correctivo-pulido.jpg';
-import modernizacion from '../assets/services/modernizacion.jpg';
-import remozamiento from '../assets/services/remozamiento.jpg';
+import preventivo from '../assets/services/preventivo.webp';
+import suministro from '../assets/services/correctivo-suministro.webp';
+import reparacion from '../assets/services/correctivo-reparacion.webp';
+import pulido from '../assets/services/correctivo-pulido.webp';
+import modernizacion from '../assets/services/modernizacion.webp';
+import remozamiento from '../assets/services/remozamiento.webp';
 
-import arospray from '../assets/brochure/arospray.png';
-import arofuserMax from '../assets/brochure/arofuser-max.png';
-import arostyler from '../assets/brochure/arostyler.png';
-import arostream from '../assets/brochure/arostream.png';
+import arospray from '../assets/brochure/arospray.webp';
+import arofuserMax from '../assets/brochure/arofuser-max.webp';
+import arostyler from '../assets/brochure/arostyler.webp';
+import arostream from '../assets/brochure/arostream.webp';
 
 export const METRICS = [
     { value: '25+', label: 'Años en transporte vertical' },
