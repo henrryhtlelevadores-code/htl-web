@@ -5,20 +5,28 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { NOT_FOUND, PAGES, SITE_URL } from './src/data/seo.js'
 
-// The elevator scene is a lazy chunk, so the browser would only discover it after the main bundle
-// runs. This adds a modulepreload for it to the built index.html, so it downloads from the start.
-const preloadScene = () => ({
-  name: 'preload-elevator-scene',
+// What the built page needs so that the welcome panel in index.html paints with the first byte:
+// - the site's stylesheet loads without blocking it (fetched at once, applied when it arrives;
+//   src/main.jsx waits for it before drawing the app);
+// - the 3D scene's chunk is not preloaded with the page. Its address is left in a meta tag, and
+//   the hero fetches it in the background once the app is running.
+const criticalHead = () => ({
+  name: 'critical-head',
   apply: 'build',
-  transformIndexHtml(html, ctx) {
-    const chunks = Object.values(ctx.bundle ?? {}).filter(
-      (c) => c.type === 'chunk' && c.name === 'ElevatorScene',
-    )
-    return chunks.map((c) => ({
-      tag: 'link',
-      attrs: { rel: 'modulepreload', crossorigin: true, href: `/${c.fileName}` },
-      injectTo: 'head',
-    }))
+  transformIndexHtml: {
+    order: 'post',
+    handler(html, ctx) {
+      const sheet = /<link rel="stylesheet"( crossorigin)? href="([^"]+)">/
+      if (!sheet.test(html)) throw new Error('critical-head: no stylesheet link in the built index.html')
+      html = html.replace(sheet, (_, cors = '', href) =>
+        `<link rel="preload" as="style"${cors} href="${href}">\n  <link rel="stylesheet"${cors} href="${href}" media="print" data-app-css onload="this.media='all'">`)
+      const scene = Object.values(ctx.bundle ?? {}).find((c) => c.type === 'chunk' && c.name === 'ElevatorScene')
+      if (!scene) throw new Error('critical-head: no ElevatorScene chunk in the bundle')
+      return {
+        html,
+        tags: [{ tag: 'meta', attrs: { name: 'scene-chunk', content: `/${scene.fileName}` }, injectTo: 'head' }],
+      }
+    },
   },
 })
 
@@ -59,7 +67,8 @@ const pageFiles = () => {
       outDir = resolve(config.root, config.build.outDir)
     },
     closeBundle() {
-      const shell = readFileSync(resolve(outDir, 'index.html'), 'utf8')
+      // Only the home page opens on the welcome panel: elsewhere it is served already hidden.
+      const shell = readFileSync(resolve(outDir, 'index.html'), 'utf8').replace('<div id="intro" ', '<div id="intro" hidden ')
       for (const page of Object.values(PAGES)) {
         if (page.path === '/') continue
         writeFileSync(resolve(outDir, `${page.path.slice(1)}.html`), withMeta(shell, { ...page, url: SITE_URL + page.path }))
@@ -74,7 +83,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    preloadScene(),
+    criticalHead(),
     pageFiles(),
   ],
 })

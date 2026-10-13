@@ -89,7 +89,7 @@ function PhoneScreen({ index }) {
                 <div className="mt-3 grid grid-cols-2 gap-2">
                     {[['Antes', '0%'], ['Después', '100%']].map(([tag, pos]) => (
                         <div key={tag} className="relative aspect-square overflow-hidden bg-line">
-                            <img src={cabina} alt="" loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: `${pos} 50%`, width: '200%', maxWidth: 'none', marginLeft: tag === 'Antes' ? 0 : '-100%' }} />
+                            <img src={cabina} alt="" width="899" height="706" loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: `${pos} 50%`, width: '200%', maxWidth: 'none', marginLeft: tag === 'Antes' ? 0 : '-100%' }} />
                             <span className="absolute bottom-1 left-1 flex items-center gap-1 bg-black/75 px-1.5 py-0.5 text-[0.6rem] font-bold text-white">
                                 <Camera size={10} aria-hidden="true" /> {tag}
                             </span>

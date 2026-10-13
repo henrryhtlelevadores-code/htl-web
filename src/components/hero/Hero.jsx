@@ -6,7 +6,7 @@ import ChevronsUp from '../ui/ChevronsUp';
 import HallDisplay from '../ui/HallDisplay';
 import logoWhite from '../../assets/logohtl.png';
 import { FLOORS } from '../../data/site';
-import { isLiftCalled, onRideSkipped, setSceneStatus, subscribeLiftCalled } from '../../lib/sceneStatus';
+import { isLiftCalled, isSceneWanted, onRideSkipped, setSceneStatus, subscribeLiftCalled, subscribeSceneWanted } from '../../lib/sceneStatus';
 import ElevatorCallButton from '../ui/ElevatorCallButton';
 import { CRACK, LEAF_TRAVEL, clamp01, doorwayLayout, openAt, solveRide, squashAt, sweepAt, CALL_STATION, DOOR_H, DOOR_W } from './geometry';
 
@@ -22,10 +22,20 @@ function SceneUnavailable({ onFail }) {
     return null;
 }
 
-// The 3D chunk is requested the moment this module runs (index.html also preloads it), so it
-// downloads in parallel with everything else instead of waiting for an idle moment.
-const sceneModule = import('./ElevatorScene').catch(() => ({ default: SceneUnavailable }));
-const ElevatorScene = lazy(() => sceneModule);
+// The 3D chunk is imported, and the scene built, only once the scene is wanted (see sceneStatus).
+const ElevatorScene = lazy(() => import('./ElevatorScene').catch(() => ({ default: SceneUnavailable })));
+
+// Until then its code is fetched in the background, after the app has started, so it is already
+// in the browser when the lift is called. The build leaves the chunk's address in index.html.
+function prefetchScene() {
+    const href = document.querySelector('meta[name="scene-chunk"]')?.content;
+    if (!href || document.querySelector(`link[rel="modulepreload"][href="${href}"]`)) return;
+    const link = document.createElement('link');
+    link.rel = 'modulepreload';
+    link.crossOrigin = '';
+    link.href = href;
+    document.head.appendChild(link);
+}
 
 // The wall station is laid out at this height (px) and scaled to its on-screen size.
 const STATION_BASE = 240;
@@ -70,6 +80,7 @@ export default function Hero() {
     const vignetteRef = useRef(null);
     const stationRef = useRef(null);
     const called = useSyncExternalStore(subscribeLiftCalled, isLiftCalled);
+    const sceneWanted = useSyncExternalStore(subscribeSceneWanted, isSceneWanted);
     const bridgeRef = useRef(null);
     const cabinRef = useRef(null);
     const lemaRef = useRef(null);
@@ -128,6 +139,9 @@ export default function Hero() {
             lemaRef.current.style.setProperty('--edge', `${(1 - sweep) * 124 - 24}%`);
             lemaRef.current.firstElementChild.style.transform = `translate3d(0, ${(1 - sweep) * 28}px, 0)`;
             bridgeRef.current.style.pointerEvents = sweep > 0.95 ? 'auto' : 'none';
+            // Hidden until the cabin starts to leave, so the browser does not lay out and paint
+            // (or count as the page's main content) a statement nobody can see yet.
+            bridgeRef.current.style.visibility = squash > 0 ? 'visible' : 'hidden';
         }
 
         const away = clamp01(p / 0.16);
@@ -190,6 +204,11 @@ export default function Hero() {
     }, [travel]);
 
     useEffect(() => () => rideRef.current?.stop(), []);
+
+    useEffect(() => {
+        const idle = window.requestIdleCallback ?? ((fn) => setTimeout(fn, 200));
+        idle(prefetchScene);
+    }, []);
 
     // The intro's "skip" lands on the statement without the ride.
     useEffect(() => onRideSkipped(() => {
@@ -333,7 +352,7 @@ export default function Hero() {
                     className="absolute inset-0 origin-bottom bg-ground will-change-transform"
                 >
                     <Suspense fallback={null}>
-                        {sceneState !== 'failed' && (
+                        {sceneWanted && sceneState !== 'failed' && (
                             <div className={`absolute inset-0 transition-opacity duration-300 ${sceneState === 'ready' ? 'opacity-100' : 'opacity-0'}`}>
                                 <ElevatorScene
                                     progress={progress}
@@ -376,7 +395,7 @@ export default function Hero() {
                             className={`absolute inset-0 -z-10 transition-opacity duration-300 ${flat ? 'opacity-100' : 'opacity-0'}`}
                             style={{ background: 'linear-gradient(135deg, #2b2e34 0%, #1c1e22 25%, #3a3f47 50%, #1a1c20 75%, #282c32 100%)' }}
                         >
-                            <img src={logoWhite} alt="" className="absolute left-1/2 top-1/2 w-2/5 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
+                            <img src={logoWhite} alt="" width="645" height="283" className="absolute left-1/2 top-1/2 h-auto w-2/5 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
                         </div>
                         <div
                             ref={leftRef}

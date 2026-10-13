@@ -45,6 +45,7 @@ export const SERVICES = [
         name: 'Mantenimiento preventivo',
         short: 'Menos paradas, más disponibilidad.',
         image: preventivo,
+        size: [825, 1024],
         alt: 'Técnico de HTL midiendo el tablero de control en la sala de máquinas',
         points: [
             'Maximiza la disponibilidad del ascensor y reduce las paradas no planificadas.',
@@ -58,6 +59,7 @@ export const SERVICES = [
         name: 'Correctivo: suministro',
         short: 'El repuesto correcto, instalado sin demoras.',
         image: suministro,
+        size: [1100, 1365],
         alt: 'Técnico de HTL instalando una tarjeta de control nueva junto a la pieza retirada',
         points: [
             'Reemplazo rápido y preciso con repuestos originales y de alta calidad.',
@@ -70,6 +72,7 @@ export const SERVICES = [
         name: 'Correctivo: reparación',
         short: 'La avería puntual, resuelta sin cambiar de más.',
         image: reparacion,
+        size: [1100, 1365],
         alt: 'Técnico de HTL reparando una tarjeta de control con un cautín',
         points: [
             'Solución eficiente para averías específicas y puntuales.',
@@ -83,6 +86,7 @@ export const SERVICES = [
         name: 'Correctivo: pulido de acero',
         short: 'Cabinas y puertas que vuelven a brillar.',
         image: pulido,
+        size: [1100, 1365],
         alt: 'Técnico de HTL puliendo el acero inoxidable de la entrada de una cabina',
         points: [
             'Pulido de acero inoxidable para restaurar la estética de la cabina.',
@@ -96,6 +100,7 @@ export const SERVICES = [
         name: 'Modernización, por componentes o total',
         short: 'De 3 o 4 ítems puntuales a la sala de máquinas completa.',
         image: modernizacion,
+        size: [1100, 1365],
         alt: 'Técnico de HTL cambiando la botonera de una cabina durante una modernización',
         points: [
             'Por componentes: botoneras, cámaras de seguridad, tarjetas de control o displays.',
@@ -109,6 +114,7 @@ export const SERVICES = [
         name: 'Remozamiento de cabina',
         short: 'La cabina que sus residentes ven todos los días.',
         image: remozamiento,
+        size: [1100, 1365],
         alt: 'Técnico de HTL instalando paneles nuevos en una cabina remozada',
         points: [
             'Falso techo en acero inoxidable 304 con dicroicos LED del color que usted elija.',
@@ -194,10 +200,10 @@ export const ACCESSORIES = [
 ];
 
 export const AROMA_DEVICES = [
-    { name: 'Arospray', tech: 'Aerosol programable', volume: 50, image: arospray, alt: 'Equipo de aromatización Arospray' },
-    { name: 'Arofuser Max', tech: 'Microdifusión', volume: 1200, image: arofuserMax, alt: 'Equipo de aromatización Arofuser Max' },
-    { name: 'Arostyler', tech: 'Microdifusión', volume: 2000, image: arostyler, alt: 'Equipo de aromatización Arostyler' },
-    { name: 'Arostream', tech: 'Microdifusión', volume: 3000, image: arostream, alt: 'Equipo de aromatización Arostream' },
+    { name: 'Arospray', tech: 'Aerosol programable', volume: 50, image: arospray, size: [389, 641], alt: 'Equipo de aromatización Arospray' },
+    { name: 'Arofuser Max', tech: 'Microdifusión', volume: 1200, image: arofuserMax, size: [569, 438], alt: 'Equipo de aromatización Arofuser Max' },
+    { name: 'Arostyler', tech: 'Microdifusión', volume: 2000, image: arostyler, size: [421, 593], alt: 'Equipo de aromatización Arostyler' },
+    { name: 'Arostream', tech: 'Microdifusión', volume: 3000, image: arostream, size: [498, 501], alt: 'Equipo de aromatización Arostream' },
 ];
 
 export const SERVICE_OPTIONS = [

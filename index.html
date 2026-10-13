@@ -66,9 +66,201 @@
   }
 }
   </script>
+  <!-- The welcome panel paints from this file alone: its font, its styles and its markup are
+       all here, so nothing has to download or run before the visitor sees it. The site's own
+       stylesheet loads without blocking (see criticalHead in vite.config.js).
+       The plate repeats the look of src/components/ui/ElevatorCallButton.jsx, the station it
+       lands on: change the two together. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2" />
+  <style>
+    @font-face {
+      font-family: "Archivo Variable";
+      font-style: normal;
+      font-display: swap;
+      font-weight: 100 900;
+      font-stretch: 62% 125%;
+      src: url(/node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2) format("woff2-variations");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    html { background: #0d0e10; }
+    body { margin: 0; }
+
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+      font-family: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+      font-stretch: 100%;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #intro[hidden] { display: none; }
+    .intro-veil { position: absolute; inset: 0; background: #0b0c0e; }
+    /* A soft light behind the panel. A gradient, not a blurred disc: it is the first thing painted. */
+    .intro-veil::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 130vmin;
+      height: 130vmin;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.03) 45%, transparent);
+    }
+    .intro-body { position: relative; display: flex; flex-direction: column; align-items: center; padding: 0 1.5rem; text-align: center; }
+    .intro-copy { display: flex; flex-direction: column; align-items: center; }
+    .intro-copy img { display: block; height: 2.5rem; width: auto; }
+    .intro-copy p { margin: 1.5rem 0 0; min-height: 3rem; max-width: 26ch; font-size: 1rem; line-height: 1.375; color: rgb(255 255 255 / 0.75); }
+
+    .intro-plate {
+      position: relative;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9%;
+      height: min(46svh, 21rem);
+      aspect-ratio: 13 / 30;
+      margin-top: 1.5rem;
+      border-radius: 6px;
+      background-image: linear-gradient(rgb(20 22 25 / 0.35), rgb(20 22 25 / 0.55)), url(/src/assets/textures/acero_inoxidable.webp);
+      background-size: cover;
+      box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.18);
+      will-change: transform;
+    }
+    .intro-lamp { position: absolute; top: 7%; width: 34%; height: 3.5%; border-radius: 999px; background: rgb(0 0 0 / 0.6); transition: background-color 0.3s; }
+    .intro-well {
+      box-sizing: border-box;
+      display: grid;
+      place-items: center;
+      width: 52%;
+      aspect-ratio: 1;
+      margin: 0;
+      padding: 0;
+      border: 2px solid rgb(255 255 255 / 0.45);
+      border-radius: 50%;
+      background: #15171a;
+      color: rgb(255 255 255 / 0.85);
+      box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.7);
+      font: inherit;
+      transition: color 0.3s, box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+    }
+    .intro-well svg { display: block; width: 42%; height: 42%; fill: currentColor; }
+    .intro-down { border-color: rgb(255 255 255 / 0.2); color: rgb(255 255 255 / 0.3); }
+    .intro-down svg { transform: rotate(180deg); }
+    .intro-up { cursor: pointer; }
+    .intro-up:hover { border-color: #fff; }
+    .intro-up:active { transform: scale(0.95); }
+    .intro-up:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    #intro.is-called .intro-lamp { background: #ff3d2e; box-shadow: 0 0 14px 2px rgb(255 61 46 / 0.7); }
+    #intro.is-called .intro-up {
+      border-color: #ff3d2e;
+      background: #1a0d0c;
+      color: #ff3d2e;
+      box-shadow: 0 0 0 5px rgb(255 61 46 / 0.22), 0 0 26px 4px rgb(255 61 46 / 0.55);
+      cursor: default;
+      transform: none;
+    }
+    #intro.is-called .intro-skip { display: none; }
+
+    .intro-skip {
+      position: absolute;
+      right: 0.75rem;
+      bottom: max(0.75rem, env(safe-area-inset-bottom));
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      min-height: 2.75rem;
+      padding: 0 0.75rem;
+      border: 0;
+      background: none;
+      color: rgb(255 255 255 / 0.45);
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.333;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .intro-skip:hover { color: #fff; }
+    .intro-skip:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .intro-skip svg { width: 0.625rem; height: 0.625rem; }
+
+    @media (min-width: 40rem) {
+      .intro-copy img { height: 3rem; }
+      .intro-copy p { font-size: 1.125rem; }
+      .intro-skip { right: 1.5rem; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- The welcome: a hall call panel on a dark ground. It is plain HTML so it is on screen with
+       the first byte; src/components/hero/CallIntro.jsx drives it once the app is running. -->
+  <div id="intro" role="dialog" aria-modal="true" aria-label="Llamar al ascensor">
+    <div class="intro-veil"></div>
+    <div class="intro-body">
+      <div class="intro-copy">
+        <img src="/src/assets/logohtl.png" alt="HTL Elevadores" width="645" height="283" />
+        <p aria-live="polite">Presione el botón para llamar al ascensor.</p>
+      </div>
+      <div class="intro-plate">
+        <span class="intro-lamp" aria-hidden="true"></span>
+        <button type="button" class="intro-well intro-up" aria-label="Llamar al ascensor" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 20 18H4z" /></svg>
+        </button>
+        <span class="intro-well intro-down" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 5 20 18H4z" /></svg>
+        </span>
+      </div>
+    </div>
+    <button type="button" class="intro-skip">
+      Omitir
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2 2.5 6 6 2 9.5M7 2.5 11 6 7 9.5" />
+      </svg>
+    </button>
+  </div>
+  <script>
+    // The welcome works before the app has loaded: a press lights the button at once and is kept
+    // in window.__intro, where CallIntro.jsx picks it up as soon as it starts.
+    (function () {
+      var el = document.getElementById('intro');
+      // Only a plain visit to the home page opens on the welcome: a link to a floor, another
+      // page, or a visitor who asked for less motion goes straight in.
+      var show = location.pathname === '/' && !location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // `first` is true while this is the panel as served, which may be pressed before the app runs.
+      var intro = (window.__intro = { el: el, first: show, called: false, skipped: false, onCall: null, onSkip: null });
+      var up = el.querySelector('.intro-up');
+      intro.call = function () {
+        if (intro.called || intro.skipped) return;
+        intro.called = true;
+        el.classList.add('is-called');
+        up.disabled = true;
+        up.setAttribute('aria-pressed', 'true');
+        el.querySelector('p').textContent = 'Bienvenido a HTL Elevadores. Solicitando cabina…';
+        if (intro.onCall) intro.onCall();
+      };
+      intro.skip = function () {
+        if (intro.called || intro.skipped) return;
+        intro.skipped = true;
+        el.hidden = true;
+        if (intro.onSkip) intro.onSkip();
+      };
+      if (!show) el.hidden = true;
+      up.addEventListener('click', intro.call);
+      el.querySelector('.intro-skip').addEventListener('click', intro.skip);
+    })();
+  </script>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

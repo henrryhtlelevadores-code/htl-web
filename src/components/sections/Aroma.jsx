@@ -23,7 +23,7 @@ export default function Aroma() {
                     {AROMA_DEVICES.map((d, i) => (
                         <li key={d.name} className="grid gap-x-8 gap-y-4 border-b border-line py-6 md:grid-cols-[7rem_13rem_1fr] md:items-center">
                             <div className="w-32 md:w-full">
-                                <img src={d.image} alt={d.alt} loading="lazy" decoding="async" className="aspect-[3/4] w-full object-contain" />
+                                <img src={d.image} alt={d.alt} width={d.size[0]} height={d.size[1]} loading="lazy" decoding="async" className="aspect-[3/4] w-full object-contain" />
                             </div>
                             <div>
                                 <h3 className="lettering text-3xl md:text-4xl">{d.name}</h3>

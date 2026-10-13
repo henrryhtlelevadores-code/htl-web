@@ -1,7 +1,7 @@
 import { AnimatePresence, motion as Motion, useReducedMotion } from 'framer-motion';
 
 /** Swaps images the way the hero opens: the new one parts from the centre like a pair of doors. */
-export default function DoorImage({ src, alt, imageKey, className = '', imgClassName = '' }) {
+export default function DoorImage({ src, alt, size, imageKey, className = '', imgClassName = '' }) {
     const reduce = useReducedMotion();
     return (
         <div className={`relative overflow-hidden bg-raised ${className}`}>
@@ -10,6 +10,8 @@ export default function DoorImage({ src, alt, imageKey, className = '', imgClass
                     key={imageKey ?? src}
                     src={src}
                     alt={alt}
+                    width={size?.[0]}
+                    height={size?.[1]}
                     loading="lazy"
                     decoding="async"
                     className={`absolute inset-0 h-full w-full object-cover ${imgClassName}`}

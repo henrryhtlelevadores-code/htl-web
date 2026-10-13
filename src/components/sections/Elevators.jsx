@@ -101,6 +101,8 @@ export default function Elevators() {
                     <img
                         src={emergencia}
                         alt="Técnico de emergencias de HTL ayudando a una pasajera a salir de la cabina"
+                        width="899"
+                        height="931"
                         loading="lazy"
                         decoding="async"
                         className="h-64 w-full scale-[1.03] object-cover object-[50%_30%] md:h-full md:max-h-[30rem]"
@@ -165,7 +167,7 @@ export default function Elevators() {
                                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                                 >
                                                     <div className="grid gap-5 pb-6 pt-4 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] sm:items-center sm:gap-7">
-                                                        <img src={s.image} alt={s.alt} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-raised object-cover object-[50%_38%] sm:aspect-[4/5]" />
+                                                        <img src={s.image} alt={s.alt} width={s.size[0]} height={s.size[1]} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-raised object-cover object-[50%_38%] sm:aspect-[4/5]" />
                                                         <div>
                                                             <Points points={s.points} />
                                                             <RequestLink service={s} className="mt-6 w-full sm:w-auto" />
@@ -189,7 +191,7 @@ export default function Elevators() {
                     {/* Desktop keeps one panel in view while the list changes it. */}
                     <div className="hidden lg:block">
                         <div className="sticky top-24 grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] xl:gap-8">
-                            <DoorImage src={current.image} alt={current.alt} imageKey={current.id} className="aspect-[16/10] xl:aspect-[4/5]" imgClassName="object-[50%_38%]" />
+                            <DoorImage src={current.image} alt={current.alt} size={current.size} imageKey={current.id} className="aspect-[16/10] xl:aspect-[4/5]" imgClassName="object-[50%_38%]" />
                             <div className="self-center">
                                 <AnimatePresence mode="wait" initial={false}>
                                     <Motion.div
