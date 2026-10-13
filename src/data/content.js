@@ -19,13 +19,13 @@ export const METRICS = [
 
 // Each brand carries its own identity colour (or gradient), lit on hover. Neutral names rest in Muted.
 export const BRANDS = [
-    { name: 'OTIS', color: '#005CA9' },
+    { name: 'OTIS', color: '#2A8CD6' },
     // TKE's mark is a left-to-right gradient across its own letters.
     { name: 'TKE', gradient: 'linear-gradient(90deg, #3D1DE0 0%, #A62672 50%, #E83916 100%)' },
     { name: 'Schindler', color: '#E3000F' },
     { name: 'KONE', color: '#005BFF' },
     { name: 'BLT', color: '#3B6B9E' },
-    { name: 'PowerTech', color: '#2D3D63' },
+    { name: 'PowerTech', color: '#6E88B5' },
     { name: 'MP', color: '#5B6A73' },
     { name: 'KOYO', color: '#E60012' },
     { name: 'Orona', color: '#00A532' },
