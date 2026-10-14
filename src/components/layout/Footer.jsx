@@ -41,11 +41,6 @@ const Footer = () => {
                                     <span className="w-5 font-bold text-accent">A</span> Catálogo de productos
                                 </Link>
                             </li>
-                            <li>
-                                <Link to="/productos-royal" className={linkClass}>
-                                    <span className="w-5 font-bold text-accent">P</span> Productos Royal
-                                </Link>
-                            </li>
                         </ul>
                     </nav>
 

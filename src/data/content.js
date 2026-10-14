@@ -190,48 +190,6 @@ export const ORDER_STEPS = [
     },
 ];
 
-// The building experience: what each party receives. Icons are assigned in the section by `id`.
-export const EXPERIENCE_BENEFITS = [
-    {
-        id: 'familias',
-        title: 'Para las familias',
-        items: [
-            { label: 'Charla educativa', text: 'Información sobre alimentación saludable y el uso de utensilios de cocina.' },
-            { label: 'Diversión infantil', text: 'Máquina de helados gratis para los niños del edificio.' },
-            { label: 'Obsequio exclusivo', text: 'Un presente valorizado en $50 por cada familia asistente.' },
-        ],
-    },
-    {
-        id: 'administracion',
-        title: 'Para la administración',
-        items: [
-            { label: 'Regalo premium', text: 'Set de ollas y utensilios de alta calidad (Royal Prestige) para la administración o para sortear.' },
-            { label: 'Cero costos', text: 'El edificio no asume ningún gasto de logística, obsequios o charla.' },
-            { label: 'Valor agregado', text: 'Una actividad que mejora la percepción de los residentes hacia la junta directiva.' },
-        ],
-    },
-    {
-        id: 'edificio',
-        title: 'Para el edificio (HTL)',
-        items: [
-            { label: 'Evaluación gratuita', text: 'Inspección visual de ascensores y equipos de transporte vertical.' },
-            { label: 'Diagnóstico de áreas comunes', text: 'Revisión del estado de limpieza de sótanos, azoteas y halls.' },
-            { label: 'Cotización preferencial', text: 'Acceso a precios especiales en mantenimiento y limpieza profunda.' },
-        ],
-    },
-];
-
-// The Royal Prestige lines shown at the experience. `image` is the imported photo and `size`
-// its [width, height]; a line without a photo shows its icon until one is added.
-export const ROYAL_LINES = [
-    { id: 'ollas', name: 'Sets de ollas', image: null, size: null, alt: 'Set de ollas Royal Prestige' },
-    { id: 'sartenes', name: 'Sartenes', image: null, size: null, alt: 'Sartenes Royal Prestige' },
-    { id: 'utensilios', name: 'Utensilios de cocina', image: null, size: null, alt: 'Utensilios de cocina Royal Prestige' },
-];
-
-// The entry of SERVICE_OPTIONS the visit form preselects from the Royal Prestige page.
-export const EXPERIENCE_OPTION = 'Experiencia para mi edificio y productos Royal Prestige';
-
 export const ACCESSORIES = [
     'Atomizadores con botella graduada',
     'Microfibras',
@@ -256,7 +214,6 @@ export const SERVICE_OPTIONS = [
     'Nueva instalación',
     'Limpieza y productos ProClean',
     'Aromatización de ambientes',
-    EXPERIENCE_OPTION,
 ];
 
 // The real equipment classes HTL services, with the short name used when the request is composed.

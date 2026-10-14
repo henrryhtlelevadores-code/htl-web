@@ -14,7 +14,7 @@ export default function Aroma() {
     return (
         <section id="ambientes" aria-labelledby="ambientes-title" className="border-y border-line bg-surface">
             <div className="mx-auto max-w-[90rem] px-4 py-20 sm:px-6 md:py-28 lg:px-10">
-                <FloorHeader code="6" id="ambientes-title" title="El ambiente también se mantiene">
+                <FloorHeader code="5" id="ambientes-title" title="El ambiente también se mantiene">
                     Sistemas de dosificación programables para halls, cabinas y pasillos. Cuatro equipos, del aerosol para espacios pequeños a la microdifusión para grandes volúmenes.
                 </FloorHeader>
 

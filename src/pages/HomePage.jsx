@@ -3,7 +3,6 @@ import CallIntro from '../components/hero/CallIntro';
 import Backing from '../components/sections/Backing';
 import Elevators from '../components/sections/Elevators';
 import Software from '../components/sections/Software';
-import Experiences from '../components/sections/Experiences';
 import Facility from '../components/sections/Facility';
 import Aroma from '../components/sections/Aroma';
 import Visit from '../components/sections/Visit';
@@ -20,7 +19,6 @@ const HomePage = () => {
             <Backing />
             <Elevators />
             <Software />
-            <Experiences />
             <Facility />
             <Aroma />
             <Visit />

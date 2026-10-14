@@ -17,11 +17,6 @@ export const PAGES = {
         title: 'Productos de Limpieza ProClean en Lima | HTL Elevadores',
         description: 'Catálogo ProClean de limpieza profesional para ascensores y edificios: limpiadores, desinfectantes y desengrasantes. Consulte el stock por WhatsApp hoy.',
     },
-    royal: {
-        path: '/productos-royal',
-        title: 'Productos Royal Prestige para su Hogar | HTL Elevadores',
-        description: 'Conozca la línea Royal Prestige que HTL lleva a los edificios de Lima: sets de ollas, sartenes y utensilios de cocina. Solicite una asesoría personalizada.',
-    },
     avisoLegal: {
         path: '/aviso-legal',
         title: 'Aviso Legal y Datos de la Empresa | HTL Elevadores',

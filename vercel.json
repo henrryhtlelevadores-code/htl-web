@@ -9,10 +9,6 @@
             "destination": "/productos.html"
         },
         {
-            "source": "/productos-royal",
-            "destination": "/productos-royal.html"
-        },
-        {
             "source": "/aviso-legal",
             "destination": "/aviso-legal.html"
         },
