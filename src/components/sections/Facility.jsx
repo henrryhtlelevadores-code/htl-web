@@ -9,7 +9,7 @@ export default function Facility() {
     return (
         <section id="facility" aria-labelledby="facility-title" className="bg-ground">
             <div className="mx-auto max-w-[90rem] px-4 py-20 sm:px-6 md:py-28 lg:px-10">
-                <FloorHeader code="4" id="facility-title" title="Un solo proveedor para el ascensor y lo que lo rodea">
+                <FloorHeader code="5" id="facility-title" title="Un solo proveedor para el ascensor y lo que lo rodea">
                     HTL Facility Management cuida cabinas, pisos, vidrios y áreas comunes con la línea profesional ProClean y equipamiento industrial. Elija un producto para ver sus beneficios y presentaciones.
                 </FloorHeader>
 

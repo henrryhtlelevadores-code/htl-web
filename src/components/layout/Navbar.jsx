@@ -14,7 +14,7 @@ function Readout() {
     const { floor, direction } = useFloor();
     return (
         <div
-            className="ml-1 hidden h-10 items-center gap-2 rounded-[3px] bg-[#08090a] px-2.5 ring-1 ring-white/10 lg:flex sm:ml-3"
+            className="ml-1 hidden h-10 items-center gap-2 rounded-[3px] bg-[#08090a] px-2.5 ring-1 ring-white/10 xl:flex sm:ml-3"
             role="status"
             aria-label={`Piso actual: ${floor.name}`}
         >
@@ -69,23 +69,23 @@ export default function Navbar() {
 
                     <Readout />
 
-                    <nav aria-label="Pisos" className="ml-auto hidden items-center gap-0.5 md:flex lg:gap-1">
+                    <nav aria-label="Pisos" className="ml-auto hidden items-center gap-1 lg:flex">
                         {FLOORS.slice(1).map((f) => (
                             <Link
                                 key={f.id}
                                 to={floorTo(f.id)}
                                 aria-current={floor.id === f.id ? 'true' : undefined}
-                                className="relative flex h-11 items-center px-2 text-[13px] font-medium whitespace-nowrap text-muted transition-colors hover:text-ink lg:px-2.5 lg:text-sm aria-[current=true]:text-ink"
+                                className="relative flex h-11 items-center px-2.5 text-sm font-medium whitespace-nowrap text-muted transition-colors hover:text-ink aria-[current=true]:text-ink"
                             >
                                 {f.name}
                                 {floor.id === f.id && (
-                                    <span className="absolute inset-x-2 bottom-0.5 h-0.5 rounded-full bg-accent lg:inset-x-2.5" aria-hidden="true" />
+                                    <span className="absolute inset-x-2.5 bottom-0.5 h-0.5 rounded-full bg-accent" aria-hidden="true" />
                                 )}
                             </Link>
                         ))}
                     </nav>
 
-                    <div className="ml-auto flex items-center gap-2 md:ml-3">
+                    <div className="ml-auto flex items-center gap-2 lg:ml-3">
                         <Link to={floorTo('visita')} className="btn-call btn-call--icon shrink-0 rounded-full !min-h-11 !px-3.5 !py-2 !text-sm md:!px-5 md:!py-2.5 md:!text-[0.95rem]">
                             <ChevronsUp />
                             <span className="md:hidden">Agendar</span>
@@ -94,7 +94,7 @@ export default function Navbar() {
                         <button
                             type="button"
                             onClick={() => setOpen((v) => !v)}
-                            className="grid h-11 w-11 place-items-center rounded-[3px] border border-line text-ink md:hidden"
+                            className="grid h-11 w-11 place-items-center rounded-[3px] border border-line text-ink lg:hidden"
                             aria-expanded={open}
                             aria-controls="directorio"
                             aria-label={open ? 'Cerrar directorio' : 'Abrir directorio de pisos'}
@@ -109,7 +109,7 @@ export default function Navbar() {
                 {open && (
                     <Motion.div
                         id="directorio"
-                        className="fixed inset-0 z-40 overflow-y-auto bg-ground pt-20 md:hidden"
+                        className="fixed inset-0 z-40 overflow-y-auto bg-ground pt-20 lg:hidden"
                         initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
                         animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
                         exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}

@@ -49,7 +49,7 @@ function Field({ label, error, optional, children, id }) {
     );
 }
 
-/** Floor 6. The form has no backend: it hands the request to WhatsApp or the mail client. */
+/** Floor 7. The form has no backend: it hands the request to WhatsApp or the mail client. */
 export default function Visit() {
     const uid = useId();
     const [data, setData] = useState(EMPTY);
@@ -116,7 +116,7 @@ export default function Visit() {
         <section id="visita" aria-labelledby="visita-title" className="bg-brand text-on-brand">
             <div className="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-[1fr_minmax(0,34rem)] lg:gap-16 lg:px-10">
                 <div>
-                    <FloorHeader code="6" id="visita-title" title="Inicie su plan de excelencia hoy" onBrand>
+                    <FloorHeader code="7" id="visita-title" title="Inicie su plan de excelencia hoy" onBrand>
                         Complete el formulario y un asesor técnico se comunicará con usted para agendar una visita diagnóstica sin cargo.
                     </FloorHeader>
 

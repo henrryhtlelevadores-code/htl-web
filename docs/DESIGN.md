@@ -151,7 +151,7 @@ components:
 
 **Creative North Star: "The Lobby Directory"**
 
-The site is a building and the visitor rides it. Every home section is a floor with a keyed address (L, 1 to 6), and that address appears the same way wherever the floor is named: in a ring in the navigation, on the LED readout in the top bar, on the square plate beside the section title, and in the footer directory. The material is lobby signage and cabin steel: cool neutral grounds, flat plates inside hairline frames, heavy condensed lettering, and whole floors painted in the brand red.
+The site is a building and the visitor rides it. Every home section is a floor with a keyed address (L, 1 to 7), and that address appears the same way wherever the floor is named: in a ring in the navigation, on the LED readout in the top bar, on the square plate beside the section title, and in the footer directory. The material is lobby signage and cabin steel: cool neutral grounds, flat plates inside hairline frames, heavy condensed lettering, and whole floors painted in the brand red.
 
 Density is that of a directory board, not a brochure. Content sits in ruled rows and plates on one square lattice; there are no soft cards, no gradients on surfaces, and no decorative imagery. Red arrives in two ways only: as a drench (a full floor, a block, a bar, the call button) and as light (the LED lamp, the readout, a lit ring). Both themes are the same lobby, in daylight and after hours.
 
@@ -170,7 +170,7 @@ Movement follows the elevator. Things open from a centre seam like a pair of doo
 Cool steel neutrals around a single oxblood red, with one bright LED red reserved for things that are lit.
 
 ### Primary
-- **Cabin Red** (`brand`, #810303): the drench. Full-floor backgrounds (floors 1 and 6), the emergency block, the call button, data bars, text selection. Identical in both themes.
+- **Cabin Red** (`brand`, #810303): the drench. Full-floor backgrounds (floors 1 and 7), the emergency block, the call button, data bars, text selection. Identical in both themes.
 - **Cabin Red Deep** (`brand-deep`, #5e0202): the pressed or recessed red. Call-button hover, hover on rows that sit on a red floor, and the form panel sunk into the red floor.
 - **Accent** (`accent`, #810303 in light, `accent-dark` #ff6a5c in dark): red used as ink on neutral grounds. Floor codes on plates and in directories, metric values, check marks, small icons, the focus ring and caret. It is the same red as the brand in light and a lifted coral in dark so it stays readable (6.9:1 on the dark ground).
 

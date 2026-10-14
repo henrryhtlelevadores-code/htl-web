@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer';
 import WhatsAppButton from './components/layout/WhatsAppButton';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
+import RoyalPage from './pages/RoyalPage';
 import LegalNoticePage from './pages/LegalNoticePage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -44,6 +45,7 @@ const App = () => (
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/productos" element={<ProductsPage />} />
+                            <Route path="/productos-royal" element={<RoyalPage />} />
                             <Route path="/aviso-legal" element={<LegalNoticePage />} />
                             <Route path="/terminos-y-condiciones" element={<TermsPage />} />
                             <Route path="/politicas-de-privacidad" element={<PrivacyPage />} />
